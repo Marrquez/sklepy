@@ -1,10 +1,10 @@
 export interface Product {
-    id: string;
+    id?: string;
     name: string;
     value: number;
     units: number;
     quantity: number;
     price: number;
-    ideal: number;
-     available: number;
+    threshold: number;
+    available: number;
 }

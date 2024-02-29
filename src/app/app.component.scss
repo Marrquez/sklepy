@@ -13,27 +13,22 @@
     --pill-accent: var(--bright-blue); 
 }
 
-p {
-    margin: 0;
-    color: var(--gray-700); 
-}
-
 main {
     width: 100%; 
     min-height: 100%; 
     display: flex; 
     justify-content: center; 
-    align-items: center; 
+    // align-items: center; 
     padding: 1rem; 
     box-sizing: inherit; 
     position: relative; 
 }
+
 .main { 
     &-content {
         width: 100%;
     }   
 }
-   
 
 .content {
     display: flex;
@@ -42,11 +37,6 @@ main {
     max-width: 700px;
     margin-bottom: 3rem;
     flex-direction: row;
-}
-
-
-.content p {
-    margin-top: 1.5rem;
 }
     
 @media screen and (max-width: 650px) {

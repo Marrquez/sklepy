@@ -1,4 +1,5 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
+import { Product } from '../../models/product.model';
 
 export const ProductActions = createActionGroup({
   source: 'Product',
@@ -11,9 +12,17 @@ export const ProductActions = createActionGroup({
 
 export const AddProduct = createAction(
   '[Todo Component] Add Product',
-  props<{ name: string; value: number, quantity: number, units: number, price: number, ideal: number, available: number }>()
+  props<{ name: string; value: number, quantity: number, units: number, price: number, threshold: number, available: number }>()
+);
+export const AddProducts = createAction(
+  '[Todo Component] Add Products',
+  props<{ products: Array<Product> }>()
 );
 export const RemoveProduct = createAction(
   '[Todo Component] Remove Product',
   props<{ id: string }>()
+);
+export const UpdateProduct = createAction(
+  '[Todo Component] Update Product',
+  props<{ product: Product }>()
 );

@@ -8,6 +8,7 @@ import { reducers } from './store/reducers';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,6 @@ export const appConfig: ApplicationConfig = {
       HttpClientModule,
       StoreDevtoolsModule.instrument(),
       StoreRouterConnectingModule.forRoot({stateKey: 'router'})
-    )
+    ), provideAnimationsAsync()
   ]
 };
