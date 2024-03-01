@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { FormsModule } from '@angular/forms';
-import { Product } from '../../../models/product.model';
+import { Product } from '../../../../models/product.model';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';

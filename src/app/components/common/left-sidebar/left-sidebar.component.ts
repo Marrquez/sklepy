@@ -4,11 +4,11 @@ import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-left-sidebar',
+  selector: 'left-sidebar',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './left-sidebar.component.html',
-  styleUrl: './left-sidebar.component.sass'
+  styleUrl: './left-sidebar.component.scss'
 })
 export class LeftSidebarComponent {
   constructor(private _router: Router){}

@@ -11,39 +11,24 @@
     --red-to-pink-to-purple-vertical-gradient: linear-gradient(180deg, var(--orange-red) 0%, var(--vivid-pink) 50%, var(--electric-violet) 100%); 
     --red-to-pink-to-purple-horizontal-gradient: linear-gradient(90deg,var(--orange-red) 0%,var(--vivid-pink) 50%,var(--electric-violet) 100%); 
     --pill-accent: var(--bright-blue); 
-}
 
-main {
-    width: 100%; 
-    min-height: 100%; 
-    display: flex; 
-    justify-content: center; 
-    // align-items: center; 
-    padding: 1rem; 
-    box-sizing: inherit; 
-    position: relative; 
-}
-
-.main { 
-    &-content {
-        width: 100%;
-    }   
-}
-
-.content {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 700px;
-    margin-bottom: 3rem;
-    flex-direction: row;
-}
-    
-@media screen and (max-width: 650px) {
     .content {
+        display: flex;
+        margin: 64px auto 32px;
+        // max-width: 960px;
         flex-direction: column;
-        width: max-content;
+        align-items: center;
+    }
+    
+    svg#clouds {
+        position: fixed;
+        bottom: -160px;
+        left: -230px;
+        z-index: -10;
+        width: 1920px;
     }
 }
+
+
     
     

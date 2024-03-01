@@ -1,8 +1,8 @@
 import { Component, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { State, selectProductList } from '../../store/reducers';
-import { AddProduct, UpdateProduct } from '../../store/actions/product.actions';
-import { Product } from '../../models/product.model';
+import { State, selectProductList } from '../../../store/reducers';
+import { AddProduct, UpdateProduct } from '../../../store/actions/product.actions';
+import { Product } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { Dialog } from '@angular/cdk/dialog';
 import { NewProductComponent } from './new-product/new-product.component';
