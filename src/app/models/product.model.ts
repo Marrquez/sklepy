@@ -7,4 +7,5 @@ export interface Product {
     price: number;
     threshold: number;
     available: number;
+    own?: boolean;
 }

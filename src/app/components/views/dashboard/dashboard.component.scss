@@ -1,0 +1,22 @@
+@import '../../../../assets/css/colors';
+:host {
+    .mdc-data-table__cell, .mdc-data-table__header-cell {
+        padding: 0 8px;
+    }
+
+    .dashboard {
+        &__header {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__wrapper {
+            border: 1px solid $line; 
+        }
+
+        &__amount {
+            text-align: right;
+        }
+    }
+}
