@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { AddProductToCar, RemoveProduct, ShoppingCarActions } from '../actions/shopping-car.actions';
+import { AddProductToCar, EmptyShoppingCar, RemoveProductFromCar, ShoppingCarActions } from '../actions/shopping-car.actions';
 import { Product } from '../../models/product.model';
 
 export const shoppingCarFeatureKey = 'shoppingCar';
@@ -35,9 +35,27 @@ export const shoppingCarReducer = createReducer(
       };
     }
   }),
-  on(RemoveProduct, (state, action) => ({
+  on(RemoveProductFromCar, (state, action) => {
+    const products = [...state.products];
+    const productIndex = state.products.findIndex((p: Product) => p.id === action.id);
+
+    if(products[productIndex].quantity > 1) {
+      products[productIndex] = {...products[productIndex], quantity: products[productIndex].quantity - 1};
+
+      return {
+        ...state,
+        products: products,
+      };
+    } else {
+      return {
+        ...state, 
+        products: state.products.filter((i) => i.id !== action.id)
+      };
+    }
+  }),
+  on(EmptyShoppingCar, (state) => ({
     ...state, 
-    products: state.products.filter((i) => i.id !== action.id)
+    products: []
   })),
 );
 

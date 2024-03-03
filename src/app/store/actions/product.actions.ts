@@ -11,18 +11,18 @@ export const ProductActions = createActionGroup({
 });
 
 export const AddProduct = createAction(
-  '[Todo Component] Add Product',
-  props<{ name: string; value: number, quantity: number, units: number, price: number, threshold: number, available: number }>()
+  '[Product Component] Add Product',
+  props<{ name: string; value: number, quantity: number, units: number, price: number, available: number }>()
 );
 export const AddProducts = createAction(
-  '[Todo Component] Add Products',
+  '[Product Component] Add Products',
   props<{ products: Array<Product> }>()
 );
 export const RemoveProduct = createAction(
-  '[Todo Component] Remove Product',
+  '[Product Component] Remove Product',
   props<{ id: string }>()
 );
 export const UpdateProduct = createAction(
-  '[Todo Component] Update Product',
+  '[Product Component] Update Product',
   props<{ product: Product }>()
 );

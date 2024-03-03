@@ -2,7 +2,7 @@ import { Component, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State, selectProductList, selectShoppingCarList } from '../../../store/reducers';
 import { AddProduct, UpdateProduct } from '../../../store/actions/product.actions';
-import { AddProductToCar } from '../../../store/actions/shopping-car.actions';
+import { AddProductToCar, EmptyShoppingCar, RemoveProductFromCar } from '../../../store/actions/shopping-car.actions';
 import { Product } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { Dialog } from '@angular/cdk/dialog';
@@ -14,6 +14,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatSortModule, 
     MatCheckboxModule,
     MatIconModule, 
-    MatSidenavModule
+    MatSidenavModule,
+    MatInputModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   templateUrl: './dashboard.component.html',
@@ -37,7 +39,8 @@ export class DashboardComponent {
   carItems = 0;
   totalAmount = 0;
   ownSell = false;
-  displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'threshold', 'actions'];
+  saved = true;
+  displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
 
   constructor(
     private store: Store<State>,
@@ -50,7 +53,9 @@ export class DashboardComponent {
 
     store.select(selectShoppingCarList).subscribe(products => {
       this.shoppingCarProducts = products;
-      this.carItems = this.shoppingCarProducts.length;
+      this.carItems = this.shoppingCarProducts.reduce((sum, product) => {
+        return sum + product.quantity;
+      }, 0);
     });
   }
 
@@ -82,7 +87,6 @@ export class DashboardComponent {
         value: current?.value,
         units: current?.units,
         quantity: current?.quantity,
-        threshold: current?.threshold,
         available: current?.available
       },
     });
@@ -92,14 +96,17 @@ export class DashboardComponent {
 
       if(product && !product.id) {
         this.store.dispatch(AddProduct(product));
+        this.saved = false;
       } else if (product) {
         this.store.dispatch(UpdateProduct({product: product}));
+        this.saved = false;
       }
     });
   }
 
   save(): void {
     localStorage.setItem('sklepyProducts', JSON.stringify(this.products.data));
+    this.saved = true;
   }
 
   addToCar(product: Product): void {
@@ -115,9 +122,24 @@ export class DashboardComponent {
 
   }
 
+  removeItemFromCar(item: Product): void {
+    this.store.dispatch(RemoveProductFromCar({id: item?.id || ''}));
+    this.updateTotalAmount();
+  }
+
+  cancelTransaction(): void {
+    this.store.dispatch(EmptyShoppingCar());
+    this.updateTotalAmount();
+  }
+
   private updateTotalAmount(): void {
     this.totalAmount = this.shoppingCarProducts.reduce((sum, product) => {
       return sum + (product.quantity * product.price);
     }, 0);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.products.filter = filterValue.trim().toLowerCase();
   }
 }

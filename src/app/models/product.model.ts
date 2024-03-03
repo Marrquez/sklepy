@@ -5,7 +5,6 @@ export interface Product {
     units: number;
     quantity: number;
     price: number;
-    threshold: number;
     available: number;
     own?: boolean;
 }

@@ -19,7 +19,7 @@ export const productReducer = createReducer(
     ...state,
     products: [
       ...state.products, 
-      { id: uuidv4(), name: action.name, value: action.value, quantity: action.quantity, units: action.units, price: action.price, threshold: action.threshold, available: action.available }],
+      { id: uuidv4(), name: action.name, value: action.value, quantity: action.quantity, units: action.units, price: action.price, available: action.available }],
   })),
   on(AddProducts, (state, action) => ({
     ...state,

@@ -1,7 +1,12 @@
 @import '../../../../assets/css/colors';
+
 :host {
     .mdc-data-table__cell, .mdc-data-table__header-cell {
-        padding: 0 8px;
+        padding: 5px 8px;
+    }
+
+    .mdc-data-table__cell {
+        vertical-align: top;
     }
 
     .dashboard {
@@ -9,14 +14,70 @@
             padding: 10px;
             display: flex;
             justify-content: space-between;
+            
+            &-rigth {
+                display: flex;
+                padding: 10px 0;
+
+                button {
+                    margin: 0 0 0 16px;
+                    height: 40px;
+                }
+            }
         }
 
         &__wrapper {
             border: 1px solid $line; 
+            min-height: 600px;
+            background-color: $white;
+            border-radius: 5px;
+
+            small {
+                color: $label;
+            }
         }
 
         &__amount {
             text-align: right;
+        }
+
+        &__status {   
+            text-align: center;
+            position: relative;
+            padding: 5px 0;
+
+            span {
+                font-size: 18px;
+            }         
+            .red {
+                color: $error;
+                
+                .progress-fill {
+                    background-color: $error;
+                }
+            }
+            .yellow {
+                color: $warning;
+
+                .progress-fill {
+                    background-color: $warning;
+                }
+            }
+            .green {
+                color: $success;
+
+                .progress-fill {
+                    background-color: $success;
+                }
+            }
+
+            &-progress {
+                background-color: $line;
+                height: 5px;
+                box-sizing: border-box;
+                width: 100%;
+                border: 0.5px solid #666;
+            }
         }
     }
 }

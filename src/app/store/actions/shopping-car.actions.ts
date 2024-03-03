@@ -11,10 +11,14 @@ export const ShoppingCarActions = createActionGroup({
 });
 
 export const AddProductToCar = createAction(
-  '[Todo Component] Add Product To Car',
+  '[ShoppingCar] Add Product To Car',
   props<{ product: Product }>()
 );
-export const RemoveProduct = createAction(
-  '[Todo Component] Remove Product',
+export const RemoveProductFromCar = createAction(
+  '[ShoppingCar] Remove Product From Car',
   props<{ id: string }>()
+);
+
+export const EmptyShoppingCar = createAction(
+  '[ShoppingCar] Empty Shopping Car'
 );
