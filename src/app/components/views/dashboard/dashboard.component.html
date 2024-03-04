@@ -91,49 +91,12 @@
         </table>
     
         <mat-drawer #drawer class="dashboard__shopping-car" mode="over" position="end">
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th colspan="2">Desc.</th>
-                        <th class="dashboard__amount">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of shoppingCarProducts">
-                        <td>
-                            <button mat-mini-fab color="warn" (click)="removeItemFromCar(item);" aria-label="Example icon button with a filter list icon">
-                                <mat-icon>remove</mat-icon>
-                            </button>
-                        </td>
-                        <td>{{item.quantity}}</td>
-                        <td>{{item.name}}</td>
-                        <td class="dashboard__amount">{{item.price * item.quantity  | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-                    </tr>
-                    
-                    <tr>
-                        <td></td>
-                        <td colspan="2">Total</td>
-                        <td class="dashboard__amount">{{totalAmount | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="4">
-                            <mat-checkbox [disabled]="totalAmount === 0" class="example-margin" [(ngModel)]="ownSell">Own sell</mat-checkbox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <button mat-flat-button color="basic" (click)="cancelTransaction(); drawer.toggle()">
-                                Cancel
-                            </button>
-                            <button [disabled]="totalAmount === 0" mat-flat-button color="primary" (click)="checkout(); drawer.toggle()">
-                                Checkout
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <app-shopping-car
+                (toggle)="drawer.toggle()"
+                (removeItem)="removeItemFromCar($event)"
+                (cancelTransaction)="cancelTransaction(); drawer.toggle()"
+                (checkout)="checkout($event); drawer.toggle()"
+            ></app-shopping-car>
         </mat-drawer>
     </mat-drawer-container>
 </div>

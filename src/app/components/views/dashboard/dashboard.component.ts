@@ -13,8 +13,9 @@ import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
+import { ShoppingCarComponent } from './shopping-car/shopping-car.component';
+import { AddSell } from '../../../store/actions/sells.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,10 +25,10 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonModule, 
     MatTableModule, 
     MatSortModule, 
-    MatCheckboxModule,
     MatIconModule, 
     MatSidenavModule,
-    MatInputModule
+    MatInputModule,
+    ShoppingCarComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
   templateUrl: './dashboard.component.html',
@@ -37,10 +38,9 @@ export class DashboardComponent {
   products:any = [];
   shoppingCarProducts: Array<Product> = [];
   carItems = 0;
-  totalAmount = 0;
-  ownSell = false;
   saved = true;
   displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
+  @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
   constructor(
     private store: Store<State>,
@@ -112,30 +112,26 @@ export class DashboardComponent {
   addToCar(product: Product): void {
     const productToAdd = {
       ...product,
+      value: product.value / (product.quantity * product.units),
       units: 1
     };
     this.store.dispatch(AddProductToCar({product: productToAdd}));
-    this.updateTotalAmount();
+    
+    this.shoppingCar.updateTotalAmount();
   }
 
-  checkout(): void {
-
+  checkout(ownSell: boolean): void {
+    this.store.dispatch(AddSell({sell: {own: ownSell, products: this.shoppingCarProducts}}));
   }
 
   removeItemFromCar(item: Product): void {
     this.store.dispatch(RemoveProductFromCar({id: item?.id || ''}));
-    this.updateTotalAmount();
+    this.shoppingCar.updateTotalAmount();
   }
 
   cancelTransaction(): void {
     this.store.dispatch(EmptyShoppingCar());
-    this.updateTotalAmount();
-  }
-
-  private updateTotalAmount(): void {
-    this.totalAmount = this.shoppingCarProducts.reduce((sum, product) => {
-      return sum + (product.quantity * product.price);
-    }, 0);
+    this.shoppingCar.updateTotalAmount();
   }
 
   applyFilter(event: Event) {

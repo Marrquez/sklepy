@@ -4,6 +4,7 @@ import { HomeComponent } from './components/views/home/home.component';
 import { BasicLayoutComponent } from './components/common/layouts/basic-layout.component';
 import { BlankLayoutComponent } from './components/common/layouts/blank-layout.component';
 import { LoginComponent } from './components/views/login/login.component';
+import { SellsComponent } from './components/views/sells/sells.component';
 
 export const routes: Routes = [
     // Main redirect
@@ -15,6 +16,7 @@ export const routes: Routes = [
         children: [
             {path: 'home', component: HomeComponent},
             {path: 'dashboard', component: DashboardComponent},
+            {path: 'sells', component: SellsComponent},
         ]
     },
     {

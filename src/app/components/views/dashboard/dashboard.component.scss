@@ -26,6 +26,10 @@
             }
         }
 
+        &__shopping-car {
+            min-width: 300px;
+        }
+
         &__wrapper {
             border: 1px solid $line; 
             min-height: 600px;

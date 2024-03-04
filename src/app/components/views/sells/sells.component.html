@@ -1,0 +1,69 @@
+<div class="sells">
+    <div class="sells__header">
+        <div>
+            Sells for {{ currentDate | date: 'dd/mm/yyyy' }}
+        </div>
+        <div class="dashboard__header-rigth">
+            <button mat-flat-button color="accent" (click)="finishSells()">
+                Close box...
+            </button>
+        </div>
+    </div>
+    <div class="sells__content">
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Outcome</th>
+                    <th>Income</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container  *ngFor="let sell of sells">
+                    <tr *ngFor="let product of sell.products">
+                        <td>{{product.name}} x {{product.quantity}}</td>
+                        <td>
+                            @if (sell.own) {
+                                <span>{{product.value * product.quantity | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!sell.own) {
+                                <span>{{product.price * product.quantity | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+                            }
+                        </td>
+                    </tr>
+                </ng-container>
+                
+                <tr>
+                    <td>Total</td>
+                    <td>{{totalOutcome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                    <td>{{totalIncome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total income</td>
+                        <td>{{totalIncome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Outcome</td>
+                        <td>{{totalOutcome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total earnings</td>
+                        <td>{{earnings | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<table>
+    <thead>
+        <tr>
+            <th (click)="toggleDrawer()"><mat-icon>keyboard_arrow_left</mat-icon></th>
+            <th colspan="2">Desc.</th>
+            <th class="dashboard__amount">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of shoppingCarProducts">
+            <td>
+                <button mat-mini-fab color="warn" (click)="remove(item);" aria-label="Example icon button with a filter list icon">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.name}}</td>
+            <td class="dashboard__amount">{{item.price * item.quantity  | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+        </tr>
+        
+        <tr>
+            <td></td>
+            <td colspan="2">Total</td>
+            <td class="dashboard__amount">{{totalAmount | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+        </tr>
+
+        <tr>
+            <td colspan="4">
+                <mat-checkbox [disabled]="totalAmount === 0" class="example-margin" [checked]="checked" (click)="toggleCheck()">Own sell</mat-checkbox>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <button mat-flat-button color="basic" (click)="cancel()">
+                    Cancel
+                </button>
+                <button [disabled]="totalAmount === 0" mat-flat-button color="primary" (click)="checkoutProducts()">
+                    Checkout
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

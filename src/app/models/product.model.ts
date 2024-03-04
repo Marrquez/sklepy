@@ -8,3 +8,8 @@ export interface Product {
     available: number;
     own?: boolean;
 }
+
+export interface Sell {
+    own: boolean;
+    products: Array<Product>;
+}

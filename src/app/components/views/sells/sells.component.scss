@@ -1,0 +1,7 @@
+:host {
+    .sells {
+        &__content, &__header {
+            display: flex;
+        }
+    }
+}
