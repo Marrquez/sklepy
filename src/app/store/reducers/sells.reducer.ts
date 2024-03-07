@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { AddSell, SellsActions } from '../actions/sells.actions';
+import { AddSell, EmptySells, OpenSells, SellsActions, SetSells } from '../actions/sells.actions';
 import { Sell } from '../../models/product.model';
 
 export const sellsFeatureKey = 'sells';
@@ -47,12 +47,45 @@ export const sellsReducer = createReducer(
       });
     });
 
-    return {
+    const newState = {
       ...state,
       sells,
       totalIncome: incomes,
       totalOutcome: outcomes,
       earnings: earnings,
+    };
+    localStorage.setItem('sklepySells', JSON.stringify(newState));
+
+    return newState;
+  }),
+  on(SetSells, (state, action) => {
+    return {
+      ...state,
+      sells: action.savedState.sells,
+      totalIncome: action.savedState.totalIncome,
+      totalOutcome: action.savedState.totalOutcome,
+      earnings: action.savedState.earnings,
+      open: action.savedState.open,
+      date: action.savedState.date
+    };
+  }),
+  on(EmptySells, (state) => {
+    localStorage.removeItem('sklepySells');
+    return {
+      ...state,
+      date: '', 
+      sells: [],
+      totalIncome: 0,
+      totalOutcome: 0,
+      earnings: 0,
+      open: false
+    };
+  }),
+  on(OpenSells, (state) => {
+    return {
+      ...state,
+      date: new Date().toString(),
+      open: true
     };
   }),
 );

@@ -7,16 +7,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of shoppingCarProducts">
-            <td>
-                <button mat-mini-fab color="warn" (click)="remove(item);" aria-label="Example icon button with a filter list icon">
-                    <mat-icon>remove</mat-icon>
-                </button>
-            </td>
-            <td>{{item.quantity}}</td>
-            <td>{{item.name}}</td>
-            <td class="dashboard__amount">{{item.price * item.quantity  | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-        </tr>
+        <ng-container *ngFor="let item of shoppingCarProducts">
+            <tr [ngClass]="{'invalid': item.quantity > item.available}">
+                <td>
+                    <button mat-mini-fab color="warn" (click)="remove(item);" aria-label="Example icon button with a filter list icon">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                </td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.name}}</td>
+                <td class="dashboard__amount">{{item.price * item.quantity  | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+            </tr>
+        </ng-container>
         
         <tr>
             <td></td>
@@ -34,7 +36,7 @@
                 <button mat-flat-button color="basic" (click)="cancel()">
                     Cancel
                 </button>
-                <button [disabled]="totalAmount === 0" mat-flat-button color="primary" (click)="checkoutProducts()">
+                <button [disabled]="totalAmount === 0 || !isValidSell" mat-flat-button color="primary" (click)="checkoutProducts()">
                     Checkout
                 </button>
             </td>

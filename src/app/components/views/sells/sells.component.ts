@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { State, selectSellsList, selectSellsState } from '../../../store/reducers';
-import { Product, Sell } from '../../../models/product.model';
+import { Product, Sell, Transaction, TransactionDetail } from '../../../models/product.model';
+import { EmptySells, OpenSells, SetSells } from '../../../store/actions/sells.actions';
+import { SellsState } from '../../../store/reducers/sells.reducer';
+import { AddTransaction } from '../../../store/actions/transactions.actions';
 
 @Component({
   selector: 'app-sells',
@@ -12,7 +15,7 @@ import { Product, Sell } from '../../../models/product.model';
   templateUrl: './sells.component.html',
   styleUrl: './sells.component.scss'
 })
-export class SellsComponent {
+export class SellsComponent implements OnInit {
   currentDate = new Date();
   sells: Array<Sell> = [];
   totalIncome = 0;
@@ -32,7 +35,35 @@ export class SellsComponent {
     });
   }
 
-  finishSells(): void {
+  ngOnInit(): void {
+    if(this.sells.length === 0) {
+      const localSells = localStorage.getItem('sklepySells');
 
+      if(localSells) {
+        this.store.dispatch(SetSells({savedState: JSON.parse(localSells)}));
+      }
+    }
+  }
+
+  openCloseSells(): void {
+    if(this.openStore) {
+      if((this.totalIncome + this.totalOutcome + this.earnings) !== 0) {
+        const newTransaction: Transaction = {
+          date: this.currentDate.toLocaleDateString(),
+          details: [{
+            incomes: this.totalIncome,
+            outcomes: this.totalOutcome,
+            earnings: this.earnings
+          }]
+        };
+  
+        this.store.dispatch(AddTransaction({transaction: newTransaction}));
+      }
+      
+      this.store.dispatch(EmptySells());
+    } else {
+      this.store.dispatch(EmptySells());
+      this.store.dispatch(OpenSells());
+    }
   }
 }

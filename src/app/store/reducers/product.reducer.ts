@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { AddProduct, AddProducts, ProductActions, RemoveProduct, UpdateProduct } from '../actions/product.actions';
+import { AddProduct, AddProducts, BulkUpdateProduct, ProductActions, RemoveProduct, UpdateProduct } from '../actions/product.actions';
 import { Product } from '../../models/product.model';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -38,5 +38,18 @@ export const productReducer = createReducer(
       return product;
     })
   })),
+  on(BulkUpdateProduct, (state, action) => {
+    const products = [...state.products];
+
+    for(let product of action.productsQuantities) {
+      const productIndex = state.products.findIndex((p: Product) => p.id === product[0]);
+      products[productIndex] = {...products[productIndex], available: products[productIndex].available - product[1]};
+    }
+
+    return {
+      ...state,
+      products: products,
+    };
+  }),
 );
 

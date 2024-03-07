@@ -1,5 +1,11 @@
+@import '../../../../../assets/css/colors';
 :host {
     table {
         width: 100%;
+
+        .invalid {
+            color: $error;
+            opacity: 0.7;
+        }
     }
 }

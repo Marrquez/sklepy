@@ -75,6 +75,12 @@
                 }
             }
 
+            .empty {
+                .dashboard__status-progress {
+                    background-color: $white;
+                }
+            }
+
             &-progress {
                 background-color: $line;
                 height: 5px;

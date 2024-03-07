@@ -26,3 +26,7 @@ export const UpdateProduct = createAction(
   '[Product Component] Update Product',
   props<{ product: Product }>()
 );
+export const BulkUpdateProduct = createAction(
+  '[Product Component] Bulk Update Product',
+  props<{ productsQuantities: Map<string, number> }>()
+);

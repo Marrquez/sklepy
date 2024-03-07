@@ -13,9 +13,15 @@
             <button (click)="drawer.toggle()" [disabled]="carItems === 0" mat-mini-fab color="accent" aria-label="Car icon">
                 <mat-icon>shopping_cart</mat-icon> {{carItems}}
             </button>
-            <button mat-flat-button [disabled]="saved" color="accent" (click)="save()">
-                Save
+            <button *ngIf="!openStore" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
             </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openCloseStore()">
+                    <mat-icon>launch</mat-icon>
+                    <span>Open store</span>
+                </button>
+            </mat-menu>
         </div>
     </div>
     
@@ -63,7 +69,8 @@
                     <div [ngClass]="{
                         'red': (element.available * 100 / (element.units * element.quantity)) <= 33, 
                         'yellow': (element.available * 100 / (element.units * element.quantity)) > 33 &&  (element.available * 100 / element.units * element.quantity) <= 66,
-                        'green': (element.available * 100 / (element.units * element.quantity)) > 66
+                        'green': (element.available * 100 / (element.units * element.quantity)) > 66,
+                        'empty':  (element.available * 100 / (element.units * element.quantity)) === 0
                         }">
                         <span>{{element.available * 100 / (element.units * element.quantity)  | number:'1.0-0'}}</span>%
                         <div class="dashboard__status-progress">
@@ -80,8 +87,8 @@
                 </th>
                 <td mat-cell *matCellDef="let element">
                     <a mat-flat-button (click)="adminProduct(element)">Edit</a>
-                    <button mat-stroked-button (click)="addToCar(element)" color="primary">
-                        <mat-icon>add_shopping_cart</mat-icon>
+                    <button [disabled]="!openStore" mat-stroked-button (click)="addToCar(element)" color="primary">
+                        <mat-icon>add_shopping_cart</mat-icon> Add
                     </button>
                 </td>
             </ng-container>

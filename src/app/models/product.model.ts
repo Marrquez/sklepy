@@ -13,3 +13,14 @@ export interface Sell {
     own: boolean;
     products: Array<Product>;
 }
+
+export interface TransactionDetail {
+    incomes: number;
+    outcomes: number;
+    earnings: number;
+}
+
+export interface Transaction {
+    date: string;
+    details: Array<TransactionDetail>;
+}

@@ -5,6 +5,7 @@ import { BasicLayoutComponent } from './components/common/layouts/basic-layout.c
 import { BlankLayoutComponent } from './components/common/layouts/blank-layout.component';
 import { LoginComponent } from './components/views/login/login.component';
 import { SellsComponent } from './components/views/sells/sells.component';
+import { TransactionsComponent } from './components/views/transactions/transactions.component';
 
 export const routes: Routes = [
     // Main redirect
@@ -17,6 +18,7 @@ export const routes: Routes = [
             {path: 'home', component: HomeComponent},
             {path: 'dashboard', component: DashboardComponent},
             {path: 'sells', component: SellsComponent},
+            {path: 'history', component: TransactionsComponent},
         ]
     },
     {

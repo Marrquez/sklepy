@@ -1,0 +1,20 @@
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Incomes</th>
+            <th>Outcomes</th>
+            <th>Earnings</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let transaction of transactions">
+            <tr *ngFor="let detail of transaction.details">
+                <td>{{transaction.date}}</td>
+                <td>{{detail.incomes}}</td>
+                <td>{{detail.outcomes}}</td>
+                <td>{{detail.earnings}}</td>
+            </tr>
+        </ng-container>        
+    </tbody>
+</table>

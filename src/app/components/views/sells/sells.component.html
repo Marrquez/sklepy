@@ -1,11 +1,16 @@
 <div class="sells">
     <div class="sells__header">
         <div>
-            Sells for {{ currentDate | date: 'dd/mm/yyyy' }}
+            @if (!openStore) {
+                <span>The Store is currently close</span>
+            }
+            @if (openStore) {
+                <span>Sells for {{ currentDate | date: 'dd/MM/yyyy' }}</span>
+            }
         </div>
         <div class="dashboard__header-rigth">
-            <button mat-flat-button color="accent" (click)="finishSells()">
-                Close box...
+            <button mat-flat-button color="accent" (click)="openCloseSells()">
+                {{ openStore ? 'Close' : 'Open' }}
             </button>
         </div>
     </div>
@@ -46,7 +51,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="2">Summary</th>
+                        <th colspan="2"><h1>Summary</h1></th>
                     </tr>
                 </thead>
                 <tbody>

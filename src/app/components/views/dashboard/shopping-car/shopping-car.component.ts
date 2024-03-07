@@ -16,6 +16,7 @@ import { State, selectShoppingCarList } from '../../../../store/reducers';
   styleUrl: './shopping-car.component.scss'
 })
 export class ShoppingCarComponent {
+  isValidSell = true;
   shoppingCarProducts: Array<Product> = [];
   @Output() toggle = new EventEmitter();
   @Output() removeItem = new EventEmitter<Product>();
@@ -28,6 +29,7 @@ export class ShoppingCarComponent {
   constructor(private store: Store<State>,) {
     store.select(selectShoppingCarList).subscribe(products => {
       this.shoppingCarProducts = products;
+      this.checkValidSell();
       this.updateTotalAmount();
     });
   }
@@ -56,5 +58,9 @@ export class ShoppingCarComponent {
 
   toggleCheck(): void {
     this.checked = !this.checked;
+  }
+
+  private checkValidSell(): void {
+    this.isValidSell = this.shoppingCarProducts.every((ele) => ele.quantity <= ele.available);
   }
 }

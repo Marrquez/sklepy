@@ -1,7 +1,7 @@
 import { Component, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { State, selectProductList, selectShoppingCarList } from '../../../store/reducers';
-import { AddProduct, UpdateProduct } from '../../../store/actions/product.actions';
+import { State, selectOpenCloseState, selectProductList, selectShoppingCarList } from '../../../store/reducers';
+import { AddProduct, BulkUpdateProduct, UpdateProduct } from '../../../store/actions/product.actions';
 import { AddProductToCar, EmptyShoppingCar, RemoveProductFromCar } from '../../../store/actions/shopping-car.actions';
 import { Product } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatInputModule} from '@angular/material/input';
 import { ShoppingCarComponent } from './shopping-car/shopping-car.component';
-import { AddSell } from '../../../store/actions/sells.actions';
+import { AddSell, EmptySells, OpenSells } from '../../../store/actions/sells.actions';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +29,8 @@ import { AddSell } from '../../../store/actions/sells.actions';
     MatIconModule, 
     MatSidenavModule,
     MatInputModule,
-    ShoppingCarComponent
+    ShoppingCarComponent,
+    MatMenuModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   templateUrl: './dashboard.component.html',
@@ -39,6 +41,7 @@ export class DashboardComponent {
   shoppingCarProducts: Array<Product> = [];
   carItems = 0;
   saved = true;
+  openStore = false;
   displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
@@ -57,6 +60,8 @@ export class DashboardComponent {
         return sum + product.quantity;
       }, 0);
     });
+
+    store.select(selectOpenCloseState).subscribe(isOpen => this.openStore = isOpen);
   }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -92,14 +97,14 @@ export class DashboardComponent {
     });
 
     dialogRef.closed.subscribe(product => {
-      console.log('The dialog was closed');
-
       if(product && !product.id) {
         this.store.dispatch(AddProduct(product));
         this.saved = false;
+        this.save();
       } else if (product) {
         this.store.dispatch(UpdateProduct({product: product}));
         this.saved = false;
+        this.save();
       }
     });
   }
@@ -122,6 +127,11 @@ export class DashboardComponent {
 
   checkout(ownSell: boolean): void {
     this.store.dispatch(AddSell({sell: {own: ownSell, products: this.shoppingCarProducts}}));
+
+    this.store.dispatch(BulkUpdateProduct({productsQuantities: this.getProductsToUpdate()}));
+
+    this.cancelTransaction();
+    // this.save();
   }
 
   removeItemFromCar(item: Product): void {
@@ -137,5 +147,22 @@ export class DashboardComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.products.filter = filterValue.trim().toLowerCase();
+  }
+
+  openCloseStore(): void {
+    this.store.dispatch(EmptySells());
+    this.store.dispatch(OpenSells());
+  }
+
+  private getProductsToUpdate(): Map<string, number> {
+    const productQuantities:Map<string, number> = new Map<string, number>();
+
+    this.shoppingCarProducts.forEach((product) => {
+      if(product.id) {
+        productQuantities.set(product.id, product.quantity);
+      }
+    });
+
+    return productQuantities;
   }
 }
