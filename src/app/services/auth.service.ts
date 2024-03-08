@@ -1,70 +1,37 @@
-// import { Injectable } from '@angular/core';
-// import { AngularFireAuth } from 'angularfire2/auth';
-// import * as firebase from 'firebase/app';
-// import { Router } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { Auth } from '@angular/fire/auth';
 
-// @Injectable()
-// export class AuthService {
-//   public data = {logged: false, email: '', admin: false, adminUser: ''};
-//   authState: any = null;
+@Injectable()
+export class AuthService {
+  auth = inject(Auth);
 
-//   constructor(
-//     private afAuth: AngularFireAuth,
-//     private router: Router
-//   ) {
-//     this.afAuth.authState.subscribe((auth) => {
-//       if(auth){
-//         this.authState = auth;
-//         this.data.logged = true;
-//         this.data.email = auth.email;
-//       }else{
-//         this.authState = null;
-//         this.data.logged = false;
-//         this.data.email = "";
-//       }
-//     });
-//   }
+  constructor(
+    private router: Router
+  ) {
+    onAuthStateChanged(this.auth, user => { 
+      console.log('currentUser: ', user);
+    });
+  }
 
-//   signUpWithEmail(email: string, password: string) {
-//     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-//       .then((user) => {
-//         this.authState = user
-//       })
-//       .catch(error => {
-//         console.log(error)
-//         throw error
-//       });
-//   }
+  loginWithEmail(email: string, password: string): Promise<any> {
+    return signInWithEmailAndPassword(this.auth, email, password)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error)
+        throw error;
+      });
+  }
 
-//   resetEmail(email: string) {
-//     return this.afAuth.auth.sendPasswordResetEmail(email)
-//       .then(() => {
-//         //console.log("email sent");
-//       })
-//       .catch((error) => {
-//         throw error
-//       });
-//   }
+  logout(): void {
+    signOut(this.auth);
+    this.router.navigate(['/login'])
+  }
 
-//   loginWithEmail(email: string, password: string) {
-//     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-//       .then((data) => {
-//         //this.authState = data;
-//         //this.data.email = data.user.email;
-//       })
-//       .catch(error => {
-//         //console.log(error)
-//         //this.data.email = '';
-//         throw error
-//       });
-//   }
-
-//   signOut(): void {
-//     this.afAuth.auth.signOut();
-//     this.router.navigate(['/'])
-//   }
-
-//   navigate(view:string){
-//     this.router.navigate([view]);
-//   }
-// }
+  navigate(view:string){
+    this.router.navigate([view]);
+  }
+}

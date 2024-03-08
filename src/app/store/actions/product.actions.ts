@@ -12,7 +12,7 @@ export const ProductActions = createActionGroup({
 
 export const AddProduct = createAction(
   '[Product Component] Add Product',
-  props<{ name: string; value: number, quantity: number, units: number, price: number, available: number }>()
+  props<{ id: string, name: string; value: number, quantity: number, units: number, price: number, available: number}>()
 );
 export const AddProducts = createAction(
   '[Product Component] Add Products',

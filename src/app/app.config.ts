@@ -9,6 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { firebaseConfig } from '../environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +20,9 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     importProvidersFrom(
       StoreModule.forRoot(reducers),
+      provideFirebaseApp(() => initializeApp(firebaseConfig)),
+      provideAuth(() => getAuth()),
+      provideFirestore(() => getFirestore()),
       HttpClientModule,
       StoreDevtoolsModule.instrument(),
       StoreRouterConnectingModule.forRoot({stateKey: 'router'})

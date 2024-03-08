@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { AddProduct, AddProducts, BulkUpdateProduct, ProductActions, RemoveProduct, UpdateProduct } from '../actions/product.actions';
 import { Product } from '../../models/product.model';
-import { v4 as uuidv4 } from 'uuid';
 
 export const productFeatureKey = 'product';
 
@@ -19,7 +18,8 @@ export const productReducer = createReducer(
     ...state,
     products: [
       ...state.products, 
-      { id: uuidv4(), name: action.name, value: action.value, quantity: action.quantity, units: action.units, price: action.price, available: action.available }],
+      action
+    ]
   })),
   on(AddProducts, (state, action) => ({
     ...state,

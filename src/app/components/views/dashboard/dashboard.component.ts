@@ -17,6 +17,8 @@ import {MatInputModule} from '@angular/material/input';
 import { ShoppingCarComponent } from './shopping-car/shopping-car.component';
 import { AddSell, EmptySells, OpenSells } from '../../../store/actions/sells.actions';
 import {MatMenuModule} from '@angular/material/menu';
+import { SklepyService } from '../../../services/sklepy.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,6 +34,7 @@ import {MatMenuModule} from '@angular/material/menu';
     ShoppingCarComponent,
     MatMenuModule
   ],
+  providers: [SklepyService],
   schemas: [NO_ERRORS_SCHEMA],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -40,7 +43,6 @@ export class DashboardComponent {
   products:any = [];
   shoppingCarProducts: Array<Product> = [];
   carItems = 0;
-  saved = true;
   openStore = false;
   displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
@@ -48,7 +50,8 @@ export class DashboardComponent {
   constructor(
     private store: Store<State>,
     public dialog: Dialog,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private sklepyService: SklepyService
   ) {
     store.select(selectProductList).subscribe(products => {
       this.products = new MatTableDataSource(products);
@@ -82,7 +85,15 @@ export class DashboardComponent {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+  // adminProduct(current?: Product): void {
+  //   // this.sklepyService.getProducts().then((productRef) =>{
+  //   //   console.log("Producto obtenido correctamente!!!", productRef);
+  //   // });
 
+  //   this.sklepyService.addEmptyTravel().then((productRef) => {
+  //     console.log("Producto agregado correctamente!!!", productRef);
+  //   });
+  // }
   adminProduct(current?: Product): void {
     const dialogRef = this.dialog.open<Product>(NewProductComponent, {
       data: {
@@ -98,12 +109,16 @@ export class DashboardComponent {
 
     dialogRef.closed.subscribe(product => {
       if(product && !product.id) {
-        this.store.dispatch(AddProduct(product));
-        this.saved = false;
-        this.save();
+        const newProduct = {
+          ...product,
+          id: uuidv4()
+        };
+        this.sklepyService.addProduct(newProduct).then((productRef) => {
+          this.store.dispatch(AddProduct(newProduct));
+          this.save();
+        });
       } else if (product) {
         this.store.dispatch(UpdateProduct({product: product}));
-        this.saved = false;
         this.save();
       }
     });
@@ -111,7 +126,6 @@ export class DashboardComponent {
 
   save(): void {
     localStorage.setItem('sklepyProducts', JSON.stringify(this.products.data));
-    this.saved = true;
   }
 
   addToCar(product: Product): void {
