@@ -4,7 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { State, selectSellsList, selectSellsState } from '../../../store/reducers';
 import { Product, Sell, Transaction, TransactionDetail } from '../../../models/product.model';
-import { EmptySells, OpenSells, SetSells } from '../../../store/actions/sells.actions';
+import { EmptySells, GetSells, OpenSells, SetSells } from '../../../store/actions/sells.actions';
 import { SellsState } from '../../../store/reducers/sells.reducer';
 import { AddTransaction } from '../../../store/actions/transactions.actions';
 
@@ -35,14 +35,8 @@ export class SellsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    if(this.sells.length === 0) {
-      const localSells = localStorage.getItem('sklepySells');
-
-      if(localSells) {
-        this.store.dispatch(SetSells({savedState: JSON.parse(localSells)}));
-      }
-    }
+  ngOnInit(): void { 
+    this.store.dispatch(GetSells());
   }
 
   openCloseSells(): void {

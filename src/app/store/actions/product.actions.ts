@@ -10,6 +10,9 @@ export const ProductActions = createActionGroup({
   }
 });
 
+export const GetProducts = createAction(
+  '[Product Component] Get Products'
+);
 export const AddProduct = createAction(
   '[Product Component] Add Product',
   props<{ id: string, name: string; value: number, quantity: number, units: number, price: number, available: number}>()

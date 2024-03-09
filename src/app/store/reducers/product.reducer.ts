@@ -43,7 +43,7 @@ export const productReducer = createReducer(
 
     for(let product of action.productsQuantities) {
       const productIndex = state.products.findIndex((p: Product) => p.id === product[0]);
-      products[productIndex] = {...products[productIndex], available: products[productIndex].available - product[1]};
+      products[productIndex] = {...products[productIndex], available: product[1]};
     }
 
     return {

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { State, selectOpenCloseState, selectProductList, selectShoppingCarList } from '../../../store/reducers';
 import { AddProduct, BulkUpdateProduct, UpdateProduct } from '../../../store/actions/product.actions';
 import { AddProductToCar, EmptyShoppingCar, RemoveProductFromCar } from '../../../store/actions/shopping-car.actions';
-import { Product } from '../../../models/product.model';
+import { Product, Sell } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { Dialog } from '@angular/cdk/dialog';
 import { NewProductComponent } from './new-product/new-product.component';
@@ -18,7 +18,7 @@ import { ShoppingCarComponent } from './shopping-car/shopping-car.component';
 import { AddSell, EmptySells, OpenSells } from '../../../store/actions/sells.actions';
 import {MatMenuModule} from '@angular/material/menu';
 import { SklepyService } from '../../../services/sklepy.service';
-import { v4 as uuidv4 } from 'uuid';
+import { SellsService } from '../../../services/sells.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -43,7 +43,7 @@ export class DashboardComponent {
   products:any = [];
   shoppingCarProducts: Array<Product> = [];
   carItems = 0;
-  openStore = false;
+  isOpenStore = false;
   displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
@@ -51,7 +51,8 @@ export class DashboardComponent {
     private store: Store<State>,
     public dialog: Dialog,
     private _liveAnnouncer: LiveAnnouncer,
-    private sklepyService: SklepyService
+    private sklepyService: SklepyService,
+    private sellsService: SellsService
   ) {
     store.select(selectProductList).subscribe(products => {
       this.products = new MatTableDataSource(products);
@@ -64,7 +65,7 @@ export class DashboardComponent {
       }, 0);
     });
 
-    store.select(selectOpenCloseState).subscribe(isOpen => this.openStore = isOpen);
+    store.select(selectOpenCloseState).subscribe(isOpen => this.isOpenStore = isOpen);
   }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -85,15 +86,7 @@ export class DashboardComponent {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  // adminProduct(current?: Product): void {
-  //   // this.sklepyService.getProducts().then((productRef) =>{
-  //   //   console.log("Producto obtenido correctamente!!!", productRef);
-  //   // });
 
-  //   this.sklepyService.addEmptyTravel().then((productRef) => {
-  //     console.log("Producto agregado correctamente!!!", productRef);
-  //   });
-  // }
   adminProduct(current?: Product): void {
     const dialogRef = this.dialog.open<Product>(NewProductComponent, {
       data: {
@@ -109,23 +102,20 @@ export class DashboardComponent {
 
     dialogRef.closed.subscribe(product => {
       if(product && !product.id) {
-        const newProduct = {
-          ...product,
-          id: uuidv4()
-        };
+        let newProduct = JSON.parse(JSON.stringify(product));
         this.sklepyService.addProduct(newProduct).then((productRef) => {
+          newProduct = {
+            ...product,
+            id: productRef.id
+          };
           this.store.dispatch(AddProduct(newProduct));
-          this.save();
         });
       } else if (product) {
-        this.store.dispatch(UpdateProduct({product: product}));
-        this.save();
+        this.sklepyService.updateProduct(product).then(() => {
+          this.store.dispatch(UpdateProduct({product: product}));
+        });
       }
     });
-  }
-
-  save(): void {
-    localStorage.setItem('sklepyProducts', JSON.stringify(this.products.data));
   }
 
   addToCar(product: Product): void {
@@ -140,12 +130,17 @@ export class DashboardComponent {
   }
 
   checkout(ownSell: boolean): void {
-    this.store.dispatch(AddSell({sell: {own: ownSell, products: this.shoppingCarProducts}}));
+    this.sellsService.addSell(ownSell, this.shoppingCarProducts).then((productRef) => {
+      this.store.dispatch(AddSell({sell: {own: ownSell, products: this.shoppingCarProducts}}));
 
-    this.store.dispatch(BulkUpdateProduct({productsQuantities: this.getProductsToUpdate()}));
+      const productstoUpdate = this.getProductsToUpdate();
 
-    this.cancelTransaction();
-    // this.save();
+      this.sklepyService.bulkUpdateProducts(productstoUpdate).then(() => {
+        this.store.dispatch(BulkUpdateProduct({productsQuantities: productstoUpdate}));
+
+        this.cancelTransaction();
+      });
+    });
   }
 
   removeItemFromCar(item: Product): void {
@@ -163,17 +158,17 @@ export class DashboardComponent {
     this.products.filter = filterValue.trim().toLowerCase();
   }
 
-  openCloseStore(): void {
-    this.store.dispatch(EmptySells());
+  openStore(): void {
     this.store.dispatch(OpenSells());
   }
 
   private getProductsToUpdate(): Map<string, number> {
     const productQuantities:Map<string, number> = new Map<string, number>();
 
-    this.shoppingCarProducts.forEach((product) => {
-      if(product.id) {
-        productQuantities.set(product.id, product.quantity);
+    this.shoppingCarProducts.forEach((shoppingProduct) => {
+      if(shoppingProduct.id) {
+        const product = this.products.data.find((p: Product) => p.id === shoppingProduct.id);
+        productQuantities.set(product.id, product.available - shoppingProduct.quantity);
       }
     });
 

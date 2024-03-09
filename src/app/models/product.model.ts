@@ -13,6 +13,11 @@ export interface Sell {
     products: Array<Product>;
 }
 
+export interface User {
+    name: string;
+    uid: string;
+}
+
 export interface TransactionDetail {
     incomes: number;
     outcomes: number;

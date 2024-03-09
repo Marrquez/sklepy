@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { AddSell, EmptySells, OpenSells, SellsActions, SetSells } from '../actions/sells.actions';
-import { Sell } from '../../models/product.model';
+import { AddSell, EmptySells, OpenSells, SellsActions, SetSells, SetSklepStatus } from '../actions/sells.actions';
+import { Product, Sell } from '../../models/product.model';
+import { stat } from 'fs';
 
 export const sellsFeatureKey = 'sells';
 
@@ -54,23 +55,44 @@ export const sellsReducer = createReducer(
       totalOutcome: outcomes,
       earnings: earnings,
     };
-    localStorage.setItem('sklepySells', JSON.stringify(newState));
 
     return newState;
   }),
   on(SetSells, (state, action) => {
-    return {
+    let sells: Array<Sell> = [];
+
+    let [incomes, outcomes, earnings] = [0, 0, 0];
+
+    action.savedState.forEach((sell) => {
+      sells = [
+        ...sells,
+        sell
+      ];
+      sell.products.forEach((product) => {
+        const [price, value] = [product.quantity * product.price, product.quantity * product.value];
+
+        if(sell.own) {
+          outcomes += value;
+        }
+
+        if(!sell.own) {
+          incomes += price;
+          earnings += (price - value);
+        }
+      });
+    });
+
+    const newState = {
       ...state,
-      sells: action.savedState.sells,
-      totalIncome: action.savedState.totalIncome,
-      totalOutcome: action.savedState.totalOutcome,
-      earnings: action.savedState.earnings,
-      open: action.savedState.open,
-      date: action.savedState.date
+      sells,
+      totalIncome: incomes,
+      totalOutcome: outcomes,
+      earnings: earnings,
     };
+
+    return newState;
   }),
   on(EmptySells, (state) => {
-    localStorage.removeItem('sklepySells');
     return {
       ...state,
       date: '', 
@@ -81,12 +103,12 @@ export const sellsReducer = createReducer(
       open: false
     };
   }),
-  on(OpenSells, (state) => {
+  on(SetSklepStatus, (state, action) => {
     return {
       ...state,
-      date: new Date().toString(),
-      open: true
-    };
+      open: action.sklepStatus.status,
+      date: action.sklepStatus.date
+    }; 
   }),
 );
 

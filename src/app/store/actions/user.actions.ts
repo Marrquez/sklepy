@@ -1,4 +1,5 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
+import { User } from '../../models/product.model';
 
 export const UserActions = createActionGroup({
   source: 'User',
@@ -8,3 +9,8 @@ export const UserActions = createActionGroup({
     'Load Users Failure': props<{ error: unknown }>(),
   }
 });
+
+export const AddUser = createAction(
+  '[User Component] Add User',
+  props<{ user: User }>()
+);

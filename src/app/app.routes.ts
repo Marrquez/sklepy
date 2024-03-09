@@ -6,6 +6,7 @@ import { BlankLayoutComponent } from './components/common/layouts/blank-layout.c
 import { LoginComponent } from './components/views/login/login.component';
 import { SellsComponent } from './components/views/sells/sells.component';
 import { TransactionsComponent } from './components/views/transactions/transactions.component';
+import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
     // Main redirect
@@ -19,7 +20,8 @@ export const routes: Routes = [
             {path: 'dashboard', component: DashboardComponent},
             {path: 'sells', component: SellsComponent},
             {path: 'history', component: TransactionsComponent},
-        ]
+        ],
+        canActivate: [authGuard]
     },
     {
         path: 'login', component: BlankLayoutComponent,
