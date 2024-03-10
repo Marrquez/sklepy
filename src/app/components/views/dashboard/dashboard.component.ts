@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { State, selectOpenCloseState, selectProductList, selectShoppingCarList } from '../../../store/reducers';
 import { AddProduct, BulkUpdateProduct, UpdateProduct } from '../../../store/actions/product.actions';
 import { AddProductToCar, EmptyShoppingCar, RemoveProductFromCar } from '../../../store/actions/shopping-car.actions';
-import { Product, Sell } from '../../../models/product.model';
+import { Product } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { Dialog } from '@angular/cdk/dialog';
 import { NewProductComponent } from './new-product/new-product.component';
@@ -15,7 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatInputModule} from '@angular/material/input';
 import { ShoppingCarComponent } from './shopping-car/shopping-car.component';
-import { AddSell, EmptySells, OpenSells } from '../../../store/actions/sells.actions';
+import { OpenSells, SetSells } from '../../../store/actions/sells.actions';
 import {MatMenuModule} from '@angular/material/menu';
 import { SklepyService } from '../../../services/sklepy.service';
 import { SellsService } from '../../../services/sells.service';
@@ -131,7 +131,7 @@ export class DashboardComponent {
 
   checkout(ownSell: boolean): void {
     this.sellsService.addSell(ownSell, this.shoppingCarProducts).then((productRef) => {
-      this.store.dispatch(AddSell({sell: {own: ownSell, products: this.shoppingCarProducts}}));
+      this.store.dispatch(SetSells({savedState: [{own: ownSell, products: this.shoppingCarProducts}], onAdd: true}));
 
       const productstoUpdate = this.getProductsToUpdate();
 

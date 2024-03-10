@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import { Store } from '@ngrx/store';
-import { State, selectSellsList, selectSellsState } from '../../../store/reducers';
-import { Product, Sell, Transaction, TransactionDetail } from '../../../models/product.model';
-import { EmptySells, GetSells, OpenSells, SetSells } from '../../../store/actions/sells.actions';
-import { SellsState } from '../../../store/reducers/sells.reducer';
-import { AddTransaction } from '../../../store/actions/transactions.actions';
+import { State, selectSellsState, selectTransactionsList } from '../../../store/reducers';
+import { Sell, Transaction } from '../../../models/product.model';
+import { EmptySells, GetSells, OpenSells } from '../../../store/actions/sells.actions';
+import { SetTransactions } from '../../../store/actions/transactions.actions';
+import { TransactionService } from '../../../services/transactions.service';
 
 @Component({
   selector: 'app-sells',
@@ -18,13 +18,15 @@ import { AddTransaction } from '../../../store/actions/transactions.actions';
 export class SellsComponent implements OnInit {
   currentDate = new Date();
   sells: Array<Sell> = [];
+  transactions:Array<Transaction> = [];
   totalIncome = 0;
   totalOutcome = 0;
   earnings = 0;
   openStore = false;
 
   constructor(
-    private store: Store<State>
+    private store: Store<State>,
+    private transactionService: TransactionService
   ) {
     store.select(selectSellsState).subscribe(sellsState => {
       this.sells = sellsState.sells;
@@ -32,6 +34,10 @@ export class SellsComponent implements OnInit {
       this.totalOutcome = sellsState.totalOutcome;
       this.earnings = sellsState.earnings;
       this.openStore = sellsState.open;
+    });
+
+    store.select(selectTransactionsList).subscribe(trasnactions => {
+      this.transactions = trasnactions;
     });
   }
 
@@ -50,8 +56,11 @@ export class SellsComponent implements OnInit {
             earnings: this.earnings
           }]
         };
-  
-        this.store.dispatch(AddTransaction({transaction: newTransaction}));
+
+        this.transactionService.addTransaction(newTransaction).then(() => {
+          const updatedTransactions = this.getUpdatedTransactions(newTransaction);
+          this.store.dispatch(SetTransactions({savedState: {transactions: updatedTransactions}}));
+        });
       }
       
       this.store.dispatch(EmptySells());
@@ -59,5 +68,27 @@ export class SellsComponent implements OnInit {
       this.store.dispatch(EmptySells());
       this.store.dispatch(OpenSells());
     }
+  }
+
+  private getUpdatedTransactions(transaction: Transaction): Array<Transaction> {
+    let transactions = [...this.transactions];
+    const transactionIndex = transactions.findIndex((p: Transaction) => p.date === transaction.date);
+
+    if(transactionIndex !== -1) {
+      transactions[transactionIndex] = {
+        ...transactions[transactionIndex], 
+        details: [
+          ...transactions[transactionIndex].details, 
+          ...transaction.details
+        ]
+      };
+    } else {
+      transactions = [
+        ...this.transactions,
+        transaction
+      ]; 
+    }
+
+    return transactions;
   }
 }

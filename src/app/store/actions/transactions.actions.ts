@@ -1,5 +1,4 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Transaction } from '../../models/product.model';
 import { TransactionsState } from '../reducers/transactions.reducer';
 
 export const TransactionsActions = createActionGroup({
@@ -11,12 +10,11 @@ export const TransactionsActions = createActionGroup({
   }
 });
 
-export const AddTransaction = createAction(
-  '[Transaction Component] Add Transaction',
-  props<{ transaction: Transaction }>()
-);
-
 export const SetTransactions = createAction(
   '[Transaction Component] Set Transactions',
   props<{ savedState: TransactionsState }>() 
+);
+
+export const GetTransactions = createAction(
+  '[Transaction Component] Get Transactions'
 );

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SellsService } from '../../services/sells.service';
 import { EmptySells, GetSells, GetSklepStatus, OpenSells, SetSells, SetSklepStatus } from '../actions/sells.actions';
-import { from, map, switchMap } from 'rxjs';
+import { forkJoin, from, map, switchMap } from 'rxjs';
 import { Sell } from '../../models/product.model';
 
 
@@ -35,7 +35,7 @@ export class SellsEffects {
             const sellsArr: Array<Sell> = sells.map((s) => {
               return {own: s['own'], products: JSON.parse(s['products'])};
             });
-            return SetSells({savedState: sellsArr});
+            return SetSells({savedState: sellsArr, onAdd: false});
           })
         )
       )
@@ -64,7 +64,7 @@ export class SellsEffects {
     () => this.actions$.pipe(
       ofType(EmptySells),
       switchMap(() => {
-        return from(this.sellsService.updateSklepStatus(false, '')).pipe(
+        return forkJoin( [from(this.sellsService.updateSklepStatus(false, '')), from(this.sellsService.deleteAll())]).pipe(
           map(() => {
             const status = {
               status: false,

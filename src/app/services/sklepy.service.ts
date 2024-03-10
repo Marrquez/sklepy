@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, setDoc, collection, addDoc, getDocs, updateDoc, doc, writeBatch } from  "@angular/fire/firestore";
 import { Product } from '../models/product.model';
-import { from } from 'rxjs';
 
 
 @Injectable({

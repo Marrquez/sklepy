@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State, selectTransactionsList } from '../../../store/reducers';
 import { Transaction } from '../../../models/product.model';
-import { SetTransactions } from '../../../store/actions/transactions.actions';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -24,12 +23,5 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.transactions.length === 0) {
-      const localTransactions = localStorage.getItem('sklepyTransactions');
-
-      if(localTransactions) {
-        this.store.dispatch(SetTransactions({savedState: JSON.parse(localTransactions)}));
-      }
-    }
   }
 }

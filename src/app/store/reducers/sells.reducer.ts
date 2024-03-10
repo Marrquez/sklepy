@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { AddSell, EmptySells, OpenSells, SellsActions, SetSells, SetSklepStatus } from '../actions/sells.actions';
-import { Product, Sell } from '../../models/product.model';
-import { stat } from 'fs';
+import { EmptySells, SetSells, SetSklepStatus } from '../actions/sells.actions';
+import { Sell } from '../../models/product.model';
 
 export const sellsFeatureKey = 'sells';
 
@@ -25,15 +24,19 @@ export const initialState: SellsState = {
 
 export const sellsReducer = createReducer(
   initialState,
-  on(AddSell, (state, action) => {
-    const sells =  [
-      ...state.sells, 
-      action.sell
-    ];
+  on(SetSells, (state, action) => {
+    let sells: Array<Sell> = [...action.savedState];
+    let newSells: Array<Sell> = [];
+
+    if(action.onAdd) {
+      sells = [...sells, ...state.sells];
+    }
 
     let [incomes, outcomes, earnings] = [0, 0, 0];
 
     sells.forEach((sell) => {
+      newSells = [...newSells, sell];
+
       sell.products.forEach((product) => {
         const [price, value] = [product.quantity * product.price, product.quantity * product.value];
 
@@ -50,41 +53,7 @@ export const sellsReducer = createReducer(
 
     const newState = {
       ...state,
-      sells,
-      totalIncome: incomes,
-      totalOutcome: outcomes,
-      earnings: earnings,
-    };
-
-    return newState;
-  }),
-  on(SetSells, (state, action) => {
-    let sells: Array<Sell> = [];
-
-    let [incomes, outcomes, earnings] = [0, 0, 0];
-
-    action.savedState.forEach((sell) => {
-      sells = [
-        ...sells,
-        sell
-      ];
-      sell.products.forEach((product) => {
-        const [price, value] = [product.quantity * product.price, product.quantity * product.value];
-
-        if(sell.own) {
-          outcomes += value;
-        }
-
-        if(!sell.own) {
-          incomes += price;
-          earnings += (price - value);
-        }
-      });
-    });
-
-    const newState = {
-      ...state,
-      sells,
+      sells: action.onAdd ? sells : newSells,
       totalIncome: incomes,
       totalOutcome: outcomes,
       earnings: earnings,

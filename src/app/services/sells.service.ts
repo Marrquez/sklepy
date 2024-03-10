@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, setDoc, collection, addDoc, getDocs, updateDoc, doc, writeBatch } from  "@angular/fire/firestore";
-import { Product, Sell } from '../models/product.model';
-import { from } from 'rxjs';
+import { Firestore, collection, addDoc, getDocs, updateDoc, doc, writeBatch } from  "@angular/fire/firestore";
+import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +43,19 @@ export class SellsService {
     });
   }
 
+  async deleteAll() {
+    let batch = writeBatch(this.firestore);
+    const sellsRef = collection(this.firestore, 'sells');
+
+    (await getDocs(sellsRef)).docs.map(doc => doc).forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+
+    return await batch.commit();
+  }
+
   async getSells() {
-    const productsRef = collection(this.firestore, 'sells');
-    return (await getDocs(productsRef)).docs.map(doc => doc.data());
+    const sellsRef = collection(this.firestore, 'sells');
+    return (await getDocs(sellsRef)).docs.map(doc => doc.data());
   }
 }

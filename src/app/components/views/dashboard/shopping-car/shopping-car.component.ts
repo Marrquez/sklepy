@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { EventEmitter, Component, Input, Output, NO_ERRORS_SCHEMA } from '@angular/core';
+import { EventEmitter, Component, Output, NO_ERRORS_SCHEMA } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import { Product } from '../../../../models/product.model';
 import {MatCheckboxModule} from '@angular/material/checkbox';

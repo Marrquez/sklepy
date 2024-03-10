@@ -5,6 +5,7 @@ import { GetProducts } from './store/actions/product.actions';
 import { Store } from '@ngrx/store';
 import { State } from './store/reducers';
 import { GetSklepStatus } from './store/actions/sells.actions';
+import { GetTransactions } from './store/actions/transactions.actions';
 
 @Component({
   selector: 'app-root',
@@ -23,5 +24,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(GetProducts());
     this.store.dispatch(GetSklepStatus());
+    this.store.dispatch(GetTransactions());
   }
 }
