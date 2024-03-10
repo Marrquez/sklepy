@@ -68,9 +68,9 @@
                 <td mat-cell class="dashboard__status" *matCellDef="let element"> 
                     <div [ngClass]="{
                         'red': (element.available * 100 / (element.units * element.quantity)) <= 33, 
-                        'yellow': (element.available * 100 / (element.units * element.quantity)) > 33 &&  (element.available * 100 / element.units * element.quantity) <= 66,
+                        'yellow': (element.available * 100 / (element.units * element.quantity)) > 33 && (element.available * 100 / (element.units * element.quantity)) <= 66,
                         'green': (element.available * 100 / (element.units * element.quantity)) > 66,
-                        'empty':  (element.available * 100 / (element.units * element.quantity)) === 0
+                        'empty': (element.available * 100 / (element.units * element.quantity)) === 0
                         }">
                         <span>{{element.available * 100 / (element.units * element.quantity)  | number:'1.0-0'}}</span>%
                         <div class="dashboard__status-progress">
@@ -80,7 +80,7 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> 
+                <th mat-header-cell *matHeaderCellDef stickyEnd> 
                     <button (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
                         <mat-icon>plus_one</mat-icon> Add new
                     </button>
@@ -93,7 +93,7 @@
                 </td>
             </ng-container>
     
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     

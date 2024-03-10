@@ -54,6 +54,7 @@ export class ShoppingCarComponent {
 
   checkoutProducts():void {
     this.checkout.emit(this.checked);
+    this.checked = false;
   }
 
   toggleCheck(): void {
