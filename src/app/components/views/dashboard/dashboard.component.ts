@@ -1,9 +1,9 @@
 import { Component, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { State, selectOpenCloseState, selectProductList, selectShoppingCarList } from '../../../store/reducers';
+import { State, selectOpenCloseState, selectProductList, selectShoppingCarList, selectUserState } from '../../../store/reducers';
 import { AddProduct, BulkUpdateProduct, UpdateProduct } from '../../../store/actions/product.actions';
 import { AddProductToCar, EmptyShoppingCar, RemoveProductFromCar } from '../../../store/actions/shopping-car.actions';
-import { Product } from '../../../models/product.model';
+import { Product, User } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { Dialog } from '@angular/cdk/dialog';
 import { NewProductComponent } from './new-product/new-product.component';
@@ -44,6 +44,11 @@ export class DashboardComponent {
   shoppingCarProducts: Array<Product> = [];
   carItems = 0;
   isOpenStore = false;
+  user: User = {
+    name: '',
+    uid: '',
+    isAdmin: false
+  };
   displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
@@ -54,6 +59,8 @@ export class DashboardComponent {
     private sklepyService: SklepyService,
     private sellsService: SellsService
   ) {
+    store.select(selectUserState).subscribe(userState => this.user = userState);
+
     store.select(selectProductList).subscribe(products => {
       this.products = new MatTableDataSource(products);
     });

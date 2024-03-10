@@ -14,3 +14,7 @@ export const AddUser = createAction(
   '[User Component] Add User',
   props<{ user: User }>()
 );
+
+export const GetUser = createAction(
+  '[User Component] Get User'
+);

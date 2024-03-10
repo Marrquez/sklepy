@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { GetProducts } from './store/actions/product.actions';
 import { Store } from '@ngrx/store';
 import { State } from './store/reducers';
-import { GetSklepStatus } from './store/actions/sells.actions';
-import { GetTransactions } from './store/actions/transactions.actions';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
+import { AddUser } from './store/actions/user.actions';
 
 @Component({
   selector: 'app-root',
@@ -14,16 +13,18 @@ import { GetTransactions } from './store/actions/transactions.actions';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'sklepy';
+  auth = inject(Auth);
+  private readonly adminUID = 'gBHfh65ImweUY3GGKJyN7qZrm3h2';
 
   constructor(
     private store: Store<State>,
-  ) {}
-
-  ngOnInit() {
-    this.store.dispatch(GetProducts());
-    this.store.dispatch(GetSklepStatus());
-    this.store.dispatch(GetTransactions());
+  ) {
+    onAuthStateChanged(this.auth, (data:any) => {
+      if(data) {
+        this.store.dispatch(AddUser({user: {name: data.email, uid: data.uid, isAdmin: data.uid === this.adminUID}}));
+      }
+    });
   }
 }

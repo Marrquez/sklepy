@@ -17,6 +17,7 @@ import { ProductEffects } from './store/effects/product.effects';
 import { SellsEffects } from './store/effects/sells.effects';
 import { environment } from '../environments/environment';
 import { TransactionsEffects } from './store/effects/transactions.effects';
+import { UserEffects } from './store/effects/user.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,7 +29,7 @@ export const appConfig: ApplicationConfig = {
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore()),
       StoreModule.forRoot(reducers),
-      EffectsModule.forRoot([ProductEffects, SellsEffects, TransactionsEffects]),
+      EffectsModule.forRoot([ProductEffects, SellsEffects, TransactionsEffects, UserEffects]),
       HttpClientModule,
       StoreDevtoolsModule.instrument(),
       StoreRouterConnectingModule.forRoot({stateKey: 'router'})

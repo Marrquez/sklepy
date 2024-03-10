@@ -6,11 +6,13 @@ export const userFeatureKey = 'user';
 export interface UserState {
   name: string;
   uid: string;
+  isAdmin: boolean;
 }
 
 export const initialState: UserState = {
   name: '',
-  uid: ''
+  uid: '',
+  isAdmin: false
 };
 
 export const userReducer = createReducer(
@@ -19,7 +21,8 @@ export const userReducer = createReducer(
     return {
       ...state,
       name: action.user.name,
-      uid: action.user.uid
+      uid: action.user.uid,
+      isAdmin: action.user.isAdmin
     };
   }),
 );
