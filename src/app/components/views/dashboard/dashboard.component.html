@@ -88,7 +88,7 @@
                 </ng-container>
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef stickyEnd> 
-                        <button (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
+                        <button *ngIf="user.isAdmin" (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
                             <mat-icon>plus_one</mat-icon> Add new
                         </button>
                     </th>
