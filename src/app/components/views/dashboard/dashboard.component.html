@@ -7,7 +7,7 @@
                   <input type="text" matInput placeholder="Type to search..." (keyup)="applyFilter($event)" #input>
                   <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
-              </form>
+            </form>
         </div>
         <div class="dashboard__header-rigth">
             <button (click)="drawer.toggle()" [disabled]="carItems === 0" mat-mini-fab color="accent" aria-label="Car icon">
@@ -25,77 +25,85 @@
         </div>
     </div>
     
-    <mat-drawer-container class="dashboard__wrapper" autosize id="wrapper">
-        <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
-            <ng-container matColumnDef="index">
-                <th mat-header-cell *matHeaderCellDef>#</th>
-                <td mat-cell *matCellDef="let index = index"><small>{{index + 1}}</small></td>
-            </ng-container>
-            <ng-container matColumnDef="code">
-                <th mat-header-cell *matHeaderCellDef> Code </th>
-                <td mat-cell *matCellDef="let element"> {{element.id.substr(0,2) + element.id.substr(element.id.length - 3,3)}} </td>
-            </ng-container>
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element"> 
-                    {{element.name}} 
-                    <br/>
-                    <small>{{element.quantity}} x {{element.units}} units.</small>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="value">
-                <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Value </th>
-                <td mat-cell class="dashboard__amount" *matCellDef="let element"> 
-                    {{ element.value / (element.units * element.quantity) | currency : 'USD' : 'symbol' : '1.0-0'}} 
-                    <br/>
-                    <small>{{element.value | currency : 'USD' : 'symbol' : '1.0-0'}}</small>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="price">
-                <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Price </th>
-                <td mat-cell class="dashboard__amount" *matCellDef="let element"> {{element.price | currency : 'USD' : 'symbol' : '1.0-0'}} </td>
-            </ng-container>   
-            <ng-container matColumnDef="win">
-                <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Earn </th>
-                <td mat-cell class="dashboard__amount" *matCellDef="let element"> {{ (element.price - (element.value / (element.units * element.quantity) )) | currency : 'USD' : 'symbol' : '1.0-0'}} </td>
-            </ng-container> 
-            <ng-container matColumnDef="available">
-                <th mat-header-cell *matHeaderCellDef> Disp. </th>
-                <td mat-cell *matCellDef="let element"> {{element.available}} / {{element.units * element.quantity}} </td>
-            </ng-container>
-            <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell class="dashboard__status" *matCellDef="let element"> 
-                    <div [ngClass]="{
-                        'red': (element.available * 100 / (element.units * element.quantity)) <= 33, 
-                        'yellow': (element.available * 100 / (element.units * element.quantity)) > 33 && (element.available * 100 / (element.units * element.quantity)) <= 66,
-                        'green': (element.available * 100 / (element.units * element.quantity)) > 66,
-                        'empty': (element.available * 100 / (element.units * element.quantity)) === 0
-                        }">
-                        <span>{{element.available * 100 / (element.units * element.quantity)  | number:'1.0-0'}}</span>%
-                        <div class="dashboard__status-progress">
-                            <div class="progress-fill" style="height: 4px; width: {{ element.available * 100 / (element.units * element.quantity) }}%;"></div>
+    <mat-drawer-container autosize id="wrapper">
+        <mat-tab-group>
+            <mat-tab label="Comidas"></mat-tab>
+            <mat-tab disabled="true" label="Bebidas"></mat-tab>
+            <mat-tab disabled="true" label="Drogueria"></mat-tab>
+            <mat-tab disabled="true" label="Otros"></mat-tab>
+        </mat-tab-group>
+        <div class="dashboard__wrapper">
+            <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+                <ng-container matColumnDef="index">
+                    <th mat-header-cell *matHeaderCellDef>#</th>
+                    <td mat-cell *matCellDef="let index = index"><small>{{index + 1}}</small></td>
+                </ng-container>
+                <ng-container matColumnDef="code">
+                    <th mat-header-cell *matHeaderCellDef> Code </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id.substr(0,2) + element.id.substr(element.id.length - 3,3)}} </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        {{element.name}} 
+                        <br/>
+                        <small>{{element.quantity}} x {{element.units}} units.</small>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="value">
+                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Value </th>
+                    <td mat-cell class="dashboard__amount" *matCellDef="let element"> 
+                        {{ element.value / (element.units * element.quantity) | currency : 'USD' : 'symbol' : '1.0-0'}} 
+                        <br/>
+                        <small>{{element.value | currency : 'USD' : 'symbol' : '1.0-0'}}</small>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Price </th>
+                    <td mat-cell class="dashboard__amount" *matCellDef="let element"> {{element.price | currency : 'USD' : 'symbol' : '1.0-0'}} </td>
+                </ng-container>   
+                <ng-container matColumnDef="win">
+                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Earn </th>
+                    <td mat-cell class="dashboard__amount" *matCellDef="let element"> {{ (element.price - (element.value / (element.units * element.quantity) )) | currency : 'USD' : 'symbol' : '1.0-0'}} </td>
+                </ng-container> 
+                <ng-container matColumnDef="available">
+                    <th mat-header-cell *matHeaderCellDef> Disp. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.available}} / {{element.units * element.quantity}} </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell class="dashboard__status" *matCellDef="let element"> 
+                        <div [ngClass]="{
+                            'red': (element.available * 100 / (element.units * element.quantity)) <= 33, 
+                            'yellow': (element.available * 100 / (element.units * element.quantity)) > 33 && (element.available * 100 / (element.units * element.quantity)) <= 66,
+                            'green': (element.available * 100 / (element.units * element.quantity)) > 66,
+                            'empty': (element.available * 100 / (element.units * element.quantity)) === 0
+                            }">
+                            <span>{{element.available * 100 / (element.units * element.quantity)  | number:'1.0-0'}}</span>%
+                            <div class="dashboard__status-progress">
+                                <div class="progress-fill" style="height: 4px; width: {{ element.available * 100 / (element.units * element.quantity) }}%;"></div>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef stickyEnd> 
-                    <button (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
-                        <mat-icon>plus_one</mat-icon> Add new
-                    </button>
-                </th>
-                <td mat-cell *matCellDef="let element">
-                    <a *ngIf="user.isAdmin" mat-flat-button (click)="adminProduct(element)">Edit</a>
-                    <button [disabled]="!isOpenStore" mat-stroked-button (click)="addToCar(element)" color="primary">
-                        <mat-icon>add_shopping_cart</mat-icon> Add
-                    </button>
-                </td>
-            </ng-container>
-    
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef stickyEnd> 
+                        <button (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
+                            <mat-icon>plus_one</mat-icon> Add new
+                        </button>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a *ngIf="user.isAdmin" mat-flat-button (click)="adminProduct(element)">Edit</a>
+                        <button [disabled]="!isOpenStore" mat-stroked-button (click)="addToCar(element)" color="primary">
+                            <mat-icon>add_shopping_cart</mat-icon> Add
+                        </button>
+                    </td>
+                </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
     
         <mat-drawer #drawer class="dashboard__shopping-car" mode="over" position="end">
             <app-shopping-car

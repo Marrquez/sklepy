@@ -19,6 +19,7 @@ import { OpenSells, SetSells } from '../../../store/actions/sells.actions';
 import {MatMenuModule} from '@angular/material/menu';
 import { SklepyService } from '../../../services/sklepy.service';
 import { SellsService } from '../../../services/sells.service';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +33,8 @@ import { SellsService } from '../../../services/sells.service';
     MatSidenavModule,
     MatInputModule,
     ShoppingCarComponent,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule
   ],
   providers: [SklepyService],
   schemas: [NO_ERRORS_SCHEMA],
