@@ -62,7 +62,10 @@ export class DashboardComponent {
     store.select(selectUserState).subscribe(userState => this.user = userState);
 
     store.select(selectProductList).subscribe(products => {
-      this.products = new MatTableDataSource(products);
+      if(products.length > 0) {
+        const sortedProducts = [...products].sort((a,b) => a.name.localeCompare(b.name));
+        this.products = new MatTableDataSource(sortedProducts);
+      }
     });
 
     store.select(selectShoppingCarList).subscribe(products => {

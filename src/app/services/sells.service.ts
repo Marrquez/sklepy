@@ -1,15 +1,17 @@
-import { Injectable, inject } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { Firestore, collection, addDoc, getDocs, updateDoc, doc, writeBatch } from  "@angular/fire/firestore";
 import { Product } from '../models/product.model';
+import { SKLEP_STATUS_DOC } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SellsService {
-  private sklepStatusId = 'lEKhxRjsDrFJyjEnme3R';
   firestore: Firestore = inject(Firestore);
 
-  constructor() { }
+  constructor(
+    @Inject(SKLEP_STATUS_DOC) private sklepStatus: string
+  ) { }
 
   async addSell(own: boolean, products: Array<Product>): Promise<any> {
     const newSell = {
@@ -37,7 +39,7 @@ export class SellsService {
   }
 
   async updateSklepStatus(status: boolean, date: string ) {
-    await updateDoc(doc(this.firestore, "sklepStatus/" + this.sklepStatusId), {
+    await updateDoc(doc(this.firestore, "sklepStatus/" + this.sklepStatus), {
       status: status,
       date: date,
     });
