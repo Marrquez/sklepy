@@ -26,7 +26,8 @@ export class SklepyService {
       value: product.value,
       units: product.units,
       quantity: product.quantity,
-      available: product.available
+      available: product.available,
+      category: product.category
     });
   }
 

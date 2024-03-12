@@ -26,11 +26,11 @@
     </div>
     
     <mat-drawer-container autosize id="wrapper">
-        <mat-tab-group>
+        <mat-tab-group  (selectedTabChange)="updateProductsList($event)" [selectedIndex]="selectedIndex">
             <mat-tab label="Comidas"></mat-tab>
-            <mat-tab disabled="true" label="Bebidas"></mat-tab>
-            <mat-tab disabled="true" label="Drogueria"></mat-tab>
-            <mat-tab disabled="true" label="Otros"></mat-tab>
+            <mat-tab label="Bebidas"></mat-tab>
+            <mat-tab label="Medicina & Aseo"></mat-tab>
+            <mat-tab label="Otros"></mat-tab>
         </mat-tab-group>
         <div class="dashboard__wrapper">
             <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">

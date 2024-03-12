@@ -11,9 +11,9 @@
         <ng-container *ngFor="let transaction of transactions">
             <tr *ngFor="let detail of transaction.details">
                 <td>{{transaction.date}}</td>
-                <td>{{detail.incomes}}</td>
-                <td>{{detail.outcomes}}</td>
-                <td>{{detail.earnings}}</td>
+                <td>{{detail.incomes | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                <td>{{detail.outcomes | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                <td>{{detail.earnings | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
             </tr>
         </ng-container>        
     </tbody>

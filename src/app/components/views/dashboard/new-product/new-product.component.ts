@@ -5,11 +5,12 @@ import { Product } from '../../../../models/product.model';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-new-product',
   standalone: true,
-  imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule],
   templateUrl: './new-product.component.html',
   styleUrl: './new-product.component.scss'
 })

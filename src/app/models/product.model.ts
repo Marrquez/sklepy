@@ -6,6 +6,7 @@ export interface Product {
     quantity: number;
     price: number;
     available: number;
+    category: string;
 }
 
 export interface Sell {

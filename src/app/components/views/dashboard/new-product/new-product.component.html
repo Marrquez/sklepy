@@ -43,6 +43,24 @@
                 </mat-form-field>
             </td>
         </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <mat-label>Category</mat-label>
+                    <select 
+                        matNativeControl
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="data.category"
+                    >
+                      <option value="foot">Foot</option>
+                      <option value="drink">Drink</option>
+                      <option value="medicine">Medicine</option>
+                      <option value="other">Other</option>
+                    </select>
+                </mat-form-field>
+            </td>
+            <td></td>
+        </tr>
     </table>
     <div>
         <button mat-flat-button color="accent" (click)="dialogRef.close(data)">OK</button>

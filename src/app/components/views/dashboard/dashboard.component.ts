@@ -43,6 +43,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 })
 export class DashboardComponent {
   products:any = [];
+  allProducts:any = [];
   shoppingCarProducts: Array<Product> = [];
   carItems = 0;
   isOpenStore = false;
@@ -51,6 +52,8 @@ export class DashboardComponent {
     uid: '',
     isAdmin: false
   };
+  selectedIndex = 0;
+  categories = [ 'foot', 'drink', 'medicine', 'other'];
   displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
@@ -65,7 +68,8 @@ export class DashboardComponent {
 
     store.select(selectProductList).subscribe(products => {
       if(products.length > 0) {
-        const sortedProducts = [...products].sort((a,b) => a.name.localeCompare(b.name));
+        this.allProducts = products;
+        const sortedProducts = this.filterProductsList(products, this.categories[this.selectedIndex]);
         this.products = new MatTableDataSource(sortedProducts);
       }
     });
@@ -83,7 +87,7 @@ export class DashboardComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
-    this.products.sort = this.sort;
+    // this.products.sort = this.sort;
   }
 
   /** Announce the change in sort state for assistive technology. */
@@ -108,7 +112,8 @@ export class DashboardComponent {
         value: current?.value,
         units: current?.units,
         quantity: current?.quantity,
-        available: current?.available
+        available: current?.available,
+        category: current?.category
       },
     });
 
@@ -170,8 +175,18 @@ export class DashboardComponent {
     this.products.filter = filterValue.trim().toLowerCase();
   }
 
+  updateProductsList(e: any): void {
+    this.selectedIndex = e.index;
+    const sortedProducts = this.filterProductsList(this.allProducts, this.categories[this.selectedIndex]);
+    this.products = new MatTableDataSource(sortedProducts);
+  }
+
   openStore(): void {
     this.store.dispatch(OpenSells());
+  }
+
+  private filterProductsList(products: Array<Product>, category: string): Array<Product> {
+    return [...products.filter(product => product.category === category)].sort((a,b) => a.name.localeCompare(b.name));
   }
 
   private getProductsToUpdate(): Map<string, number> {
@@ -179,7 +194,7 @@ export class DashboardComponent {
 
     this.shoppingCarProducts.forEach((shoppingProduct) => {
       if(shoppingProduct.id) {
-        const product = this.products.data.find((p: Product) => p.id === shoppingProduct.id);
+        const product = this.allProducts.find((p: Product) => p.id === shoppingProduct.id);
         productQuantities.set(product.id, product.available - shoppingProduct.quantity);
       }
     });

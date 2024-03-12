@@ -19,7 +19,8 @@ export class ProductEffects {
               value: p.value,
               units: p.units,
               quantity: p.quantity,
-              available: p.available
+              available: p.available,
+              category: p.category
             }));
             
             return AddProducts({products: formattedProducts});
