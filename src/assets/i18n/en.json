@@ -1,0 +1,15 @@
+{
+    "top-navbar": {
+        "language": "Language",
+        "store": "Store",
+        "sells": "Sells",
+        "transactions": "Transactions",
+        "logout": "Logout"
+    },
+    "dashboard": {
+        "welcome": "Welcome, {{value}}!"
+    },
+    "sells": {},
+    "transactions": {},
+    "footer": {}
+}

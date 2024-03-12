@@ -1,6 +1,7 @@
 <div class="dashboard">
+    <p>{{ 'dashboard.welcome' | translate:{value: username} }}</p>
     <div class="dashboard__header">
-        <div>
+        <div> 
             <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <mat-label>Search</mat-label>
@@ -34,28 +35,32 @@
         </mat-tab-group>
         <div class="dashboard__wrapper">
             <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
-                <ng-container matColumnDef="index">
+                <!-- <ng-container matColumnDef="index">
                     <th mat-header-cell *matHeaderCellDef>#</th>
                     <td mat-cell *matCellDef="let index = index"><small>{{index + 1}}</small></td>
-                </ng-container>
+                </ng-container> -->
                 <ng-container matColumnDef="code">
                     <th mat-header-cell *matHeaderCellDef> Code </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id.substr(0,2) + element.id.substr(element.id.length - 3,3)}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.id.substr(0,2) + element.id.substr(element.id.length - 2,2)}} </td>
                 </ng-container>
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef> Name </th>
                     <td mat-cell *matCellDef="let element"> 
                         {{element.name}} 
-                        <br/>
-                        <small>{{element.quantity}} x {{element.units}} units.</small>
+                        @if (user.isAdmin) {
+                            <br/>
+                            <small>{{element.quantity}} x {{element.units}} units.</small>
+                        }
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="value">
                     <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Value </th>
                     <td mat-cell class="dashboard__amount" *matCellDef="let element"> 
                         {{ element.value / (element.units * element.quantity) | currency : 'USD' : 'symbol' : '1.0-0'}} 
-                        <br/>
-                        <small>{{element.value | currency : 'USD' : 'symbol' : '1.0-0'}}</small>
+                        @if (user.isAdmin) {
+                            <br/>
+                            <small>{{element.value | currency : 'USD' : 'symbol' : '1.0-0'}}</small>
+                        }
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="price">
@@ -68,7 +73,7 @@
                 </ng-container> 
                 <ng-container matColumnDef="available">
                     <th mat-header-cell *matHeaderCellDef> Disp. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.available}} / {{element.units * element.quantity}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.available}} <span *ngIf="user.isAdmin">/ {{element.units * element.quantity}} </span></td>
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef> </th>

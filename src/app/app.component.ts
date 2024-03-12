@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { State } from './store/reducers';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { AddUser } from './store/actions/user.actions';
+import { ADMIN_USER } from './app.config';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +17,14 @@ import { AddUser } from './store/actions/user.actions';
 export class AppComponent {
   title = 'sklepy';
   auth = inject(Auth);
-  private readonly adminUID = 'gBHfh65ImweUY3GGKJyN7qZrm3h2';
 
   constructor(
     private store: Store<State>,
+    @Inject(ADMIN_USER) private adminID: string
   ) {
     onAuthStateChanged(this.auth, (data:any) => {
       if(data) {
-        this.store.dispatch(AddUser({user: {name: data.email, uid: data.uid, isAdmin: data.uid === this.adminUID}}));
+        this.store.dispatch(AddUser({user: {name: data.email, uid: data.uid, isAdmin: data.uid === this.adminID}}));
       }
     });
   }

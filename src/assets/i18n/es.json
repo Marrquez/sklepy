@@ -1,0 +1,15 @@
+{
+    "top-navbar": {
+        "language": "Idioma",
+        "store": "Tienda",
+        "sells": "Ventas",
+        "transactions": "Historial",
+        "logout": "Salir"
+    },
+    "dashboard": {
+        "welcome": "Bienvenid@, {{value}}!"
+    },
+    "sells": {},
+    "transactions": {},
+    "footer": {}
+}

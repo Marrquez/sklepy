@@ -1,4 +1,4 @@
-import { Inject, Injectable, Injector, inject } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { Auth } from '@angular/fire/auth';

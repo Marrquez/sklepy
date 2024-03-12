@@ -1,16 +1,29 @@
 <mat-toolbar>
-    <span routerLink="/home">Slepy</span>
+    <div>
+        <mat-form-field>
+            <mat-label>{{ 'top-navbar.language' | translate }}</mat-label>
+            <select 
+                matNativeControl
+                [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="language"
+                (change)="setTransLanguage()"
+            >
+              <option value="es">Espanol</option>
+              <option value="en">English</option>
+            </select>
+        </mat-form-field>
+    </div>
     <span class="example-spacer"></span>
     <button routerLink="/dashboard" mat-button aria-label="Example icon-button with heart icon">
-        <small>Store</small>
+        <small>{{ 'top-navbar.store' | translate }}</small>
     </button>
     <button routerLink="/sells" mat-button aria-label="Example icon-button with share icon">
-        <small>Sells</small>
+        <small>{{ 'top-navbar.sells' | translate }}</small>
     </button>
     <button routerLink="/history" mat-button aria-label="Example icon-button with share icon">
-        <small>Transactions</small>
+        <small>{{ 'top-navbar.transactions' | translate }}</small>
     </button>
     <button (click)="logout()" mat-button aria-label="Example icon-button with share icon">
-        <small>Logout</small>
+        <small>{{ 'top-navbar.logout' | translate }}</small>
     </button>
 </mat-toolbar>

@@ -20,6 +20,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { SklepyService } from '../../../services/sklepy.service';
 import { SellsService } from '../../../services/sells.service';
 import {MatTabsModule} from '@angular/material/tabs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +35,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatInputModule,
     ShoppingCarComponent,
     MatMenuModule,
-    MatTabsModule
+    MatTabsModule,
+    TranslateModule
   ],
   providers: [SklepyService],
   schemas: [NO_ERRORS_SCHEMA],
@@ -54,7 +56,7 @@ export class DashboardComponent {
   };
   selectedIndex = 0;
   categories = [ 'foot', 'drink', 'medicine', 'other'];
-  displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
+  displayedColumns: string[] = ['code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
   constructor(
@@ -183,6 +185,16 @@ export class DashboardComponent {
 
   openStore(): void {
     this.store.dispatch(OpenSells());
+  }
+
+  get username(): string {
+    let username = '...';
+
+    if(this.user.name) {
+      username = this.user.name.split('@')[0];
+    }
+
+    return username;
   }
 
   private filterProductsList(products: Array<Product>, category: string): Array<Product> {
