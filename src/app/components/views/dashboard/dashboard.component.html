@@ -28,6 +28,7 @@
     
     <mat-drawer-container autosize id="wrapper">
         <mat-tab-group  (selectedTabChange)="updateProductsList($event)" [selectedIndex]="selectedIndex">
+            <mat-tab label="Todos"></mat-tab>
             <mat-tab label="Comidas"></mat-tab>
             <mat-tab label="Bebidas"></mat-tab>
             <mat-tab label="Medicina & Aseo"></mat-tab>
@@ -86,7 +87,7 @@
                             }">
                             <span>{{element.available * 100 / (element.units * element.quantity)  | number:'1.0-0'}}</span>%
                             <div class="dashboard__status-progress">
-                                <div class="progress-fill" style="height: 4px; width: {{ element.available * 100 / (element.units * element.quantity) }}%;"></div>
+                                <div class="progress-fill" style="height: 3px; width: {{ element.available * 100 / (element.units * element.quantity) }}%;"></div>
                             </div>
                         </div>
                     </td>

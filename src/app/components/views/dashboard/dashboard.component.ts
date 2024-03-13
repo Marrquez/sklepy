@@ -55,7 +55,7 @@ export class DashboardComponent {
     isAdmin: false
   };
   selectedIndex = 0;
-  categories = [ 'foot', 'drink', 'medicine', 'other'];
+  categories = [ 'all', 'foot', 'drink', 'medicine', 'other'];
   displayedColumns: string[] = ['code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
@@ -198,7 +198,8 @@ export class DashboardComponent {
   }
 
   private filterProductsList(products: Array<Product>, category: string): Array<Product> {
-    return [...products.filter(product => product.category === category)].sort((a,b) => a.name.localeCompare(b.name));
+    const prods = category === 'all' ? [...products] : products.filter(product => product.category === category);
+    return [...prods].sort((a,b) => a.name.localeCompare(b.name));
   }
 
   private getProductsToUpdate(): Map<string, number> {
