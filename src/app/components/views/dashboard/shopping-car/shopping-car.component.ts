@@ -6,11 +6,18 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { State, selectShoppingCarList } from '../../../../store/reducers';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shopping-car',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCheckboxModule, MatButtonModule],
+  imports: [
+    CommonModule, 
+    MatIconModule, 
+    MatCheckboxModule, 
+    MatButtonModule,
+    TranslateModule
+  ],
   schemas: [NO_ERRORS_SCHEMA],
   templateUrl: './shopping-car.component.html',
   styleUrl: './shopping-car.component.scss'
@@ -26,7 +33,10 @@ export class ShoppingCarComponent {
   totalAmount = 0;
   checked = false;
 
-  constructor(private store: Store<State>,) {
+  constructor(
+    public translate: TranslateService,
+    private store: Store<State>
+  ) {
     store.select(selectShoppingCarList).subscribe(products => {
       this.shoppingCarProducts = products;
       this.checkValidSell();

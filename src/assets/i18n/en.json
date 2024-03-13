@@ -1,4 +1,13 @@
 {
+    "common": {
+        "ok": "Ok",
+        "cancel": "Cancel",
+        "add": "Add",
+        "edit": "Edit",
+        "save": "Save",
+        "category": "Category",
+        "total": "Total"
+    },
     "top-navbar": {
         "language": "Language",
         "store": "Store",
@@ -7,9 +16,45 @@
         "logout": "Logout"
     },
     "dashboard": {
-        "welcome": "Welcome, {{value}}!"
+        "welcome": "Welcome, {{value}}!",
+        "filters": {
+            "search": "Type to search...",
+            "all": "All",
+            "food": "Food",
+            "drinks": "Drinks",
+            "medicines": "Medicines",
+            "other": "Other"
+        },
+        "products-list": {
+            "code": "Code",
+            "name": "Name",
+            "value": "Value",
+            "price": "Price",
+            "earn": "Earn",
+            "disp": "Disp.",
+            "new": "New product",
+            "add": "To car",
+            "units": "units"
+        },
+        "shopping-car": {
+            "description": "Description",
+            "own": "Own sell",
+            "checkout": "Cehckout"
+        },
+        "new-product": {
+            "new": "New product",
+            "name": "Name",
+            "value": "Value",
+            "units": "Units",
+            "quantity": "Quantity",
+            "price": "Price",
+            "available": "Available"
+        }
     },
-    "sells": {},
+    "sells": {
+        "open-store": "Open store",
+        "close-store": "Close store"
+    },
     "transactions": {},
     "footer": {}
 }

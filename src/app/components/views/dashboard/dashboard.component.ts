@@ -21,6 +21,8 @@ import { SklepyService } from '../../../services/sklepy.service';
 import { SellsService } from '../../../services/sells.service';
 import {MatTabsModule} from '@angular/material/tabs';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +38,9 @@ import { TranslateModule } from '@ngx-translate/core';
     ShoppingCarComponent,
     MatMenuModule,
     MatTabsModule,
-    TranslateModule
+    TranslateModule,
+    MatSelectModule,
+    FormsModule
   ],
   providers: [SklepyService],
   schemas: [NO_ERRORS_SCHEMA],
@@ -54,8 +58,7 @@ export class DashboardComponent {
     uid: '',
     isAdmin: false
   };
-  selectedIndex = 0;
-  categories = [ 'all', 'foot', 'drink', 'medicine', 'other'];
+  selectedCategory = 'all';
   displayedColumns: string[] = ['code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
@@ -71,7 +74,7 @@ export class DashboardComponent {
     store.select(selectProductList).subscribe(products => {
       if(products.length > 0) {
         this.allProducts = products;
-        const sortedProducts = this.filterProductsList(products, this.categories[this.selectedIndex]);
+        const sortedProducts = this.filterProductsList(products, this.selectedCategory);
         this.products = new MatTableDataSource(sortedProducts);
       }
     });
@@ -103,6 +106,10 @@ export class DashboardComponent {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  setCategory(): void {
+
   }
 
   adminProduct(current?: Product): void {
@@ -177,9 +184,8 @@ export class DashboardComponent {
     this.products.filter = filterValue.trim().toLowerCase();
   }
 
-  updateProductsList(e: any): void {
-    this.selectedIndex = e.index;
-    const sortedProducts = this.filterProductsList(this.allProducts, this.categories[this.selectedIndex]);
+  updateProductsList() {
+    const sortedProducts = this.filterProductsList(this.allProducts, this.selectedCategory);
     this.products = new MatTableDataSource(sortedProducts);
   }
 

@@ -4,9 +4,24 @@
         <div> 
             <form class="example-form">
                 <mat-form-field class="example-full-width">
-                  <mat-label>Search</mat-label>
+                  <mat-label>{{ 'dashboard.filters.search' | translate }}</mat-label>
                   <input type="text" matInput placeholder="Type to search..." (keyup)="applyFilter($event)" #input>
                   <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>{{ 'common.category' | translate }}</mat-label>
+                    <select 
+                        matNativeControl
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="selectedCategory"
+                        (change)="updateProductsList()" 
+                    >
+                      <option value="all">{{ 'dashboard.filters.all' | translate }}</option>
+                      <option value="foot">{{ 'dashboard.filters.food' | translate }}</option>
+                      <option value="drink">{{ 'dashboard.filters.drinks' | translate }}</option>
+                      <option value="medicine">{{ 'dashboard.filters.medicines' | translate }}</option>
+                      <option value="other">{{ 'dashboard.filters.other' | translate }}</option>
+                    </select>
                 </mat-form-field>
             </form>
         </div>
@@ -20,20 +35,13 @@
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="openStore()">
                     <mat-icon>launch</mat-icon>
-                    <span>Open store</span>
+                    <span>{{ 'sells.open-store' | translate }}</span>
                 </button>
             </mat-menu>
         </div>
     </div>
     
     <mat-drawer-container autosize id="wrapper">
-        <mat-tab-group  (selectedTabChange)="updateProductsList($event)" [selectedIndex]="selectedIndex">
-            <mat-tab label="Todos"></mat-tab>
-            <mat-tab label="Comidas"></mat-tab>
-            <mat-tab label="Bebidas"></mat-tab>
-            <mat-tab label="Medicina & Aseo"></mat-tab>
-            <mat-tab label="Otros"></mat-tab>
-        </mat-tab-group>
         <div class="dashboard__wrapper">
             <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
                 <!-- <ng-container matColumnDef="index">
@@ -41,21 +49,21 @@
                     <td mat-cell *matCellDef="let index = index"><small>{{index + 1}}</small></td>
                 </ng-container> -->
                 <ng-container matColumnDef="code">
-                    <th mat-header-cell *matHeaderCellDef> Code </th>
+                    <th mat-header-cell *matHeaderCellDef> {{ 'dashboard.products-list.code' | translate }} </th>
                     <td mat-cell *matCellDef="let element"> {{element.id.substr(0,2) + element.id.substr(element.id.length - 2,2)}} </td>
                 </ng-container>
                 <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <th mat-header-cell *matHeaderCellDef> {{ 'dashboard.products-list.name' | translate }} </th>
                     <td mat-cell *matCellDef="let element"> 
                         {{element.name}} 
                         @if (user.isAdmin) {
                             <br/>
-                            <small>{{element.quantity}} x {{element.units}} units.</small>
+                            <small>{{element.quantity}} x {{element.units}} {{ 'dashboard.products-list.units' | translate }}</small>
                         }
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="value">
-                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Value </th>
+                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> {{ 'dashboard.products-list.value' | translate }} </th>
                     <td mat-cell class="dashboard__amount" *matCellDef="let element"> 
                         {{ element.value / (element.units * element.quantity) | currency : 'USD' : 'symbol' : '1.0-0'}} 
                         @if (user.isAdmin) {
@@ -65,15 +73,15 @@
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="price">
-                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Price </th>
+                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> {{ 'dashboard.products-list.price' | translate }} </th>
                     <td mat-cell class="dashboard__amount" *matCellDef="let element"> {{element.price | currency : 'USD' : 'symbol' : '1.0-0'}} </td>
                 </ng-container>   
                 <ng-container matColumnDef="win">
-                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> Earn </th>
+                    <th mat-header-cell class="dashboard__amount" *matHeaderCellDef> {{ 'dashboard.products-list.earn' | translate }} </th>
                     <td mat-cell class="dashboard__amount" *matCellDef="let element"> {{ (element.price - (element.value / (element.units * element.quantity) )) | currency : 'USD' : 'symbol' : '1.0-0'}} </td>
                 </ng-container> 
                 <ng-container matColumnDef="available">
-                    <th mat-header-cell *matHeaderCellDef> Disp. </th>
+                    <th mat-header-cell *matHeaderCellDef> {{ 'dashboard.products-list.disp' | translate }} </th>
                     <td mat-cell *matCellDef="let element"> {{element.available}} <span *ngIf="user.isAdmin">/ {{element.units * element.quantity}} </span></td>
                 </ng-container>
                 <ng-container matColumnDef="status">
@@ -95,13 +103,13 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef stickyEnd> 
                         <button *ngIf="user.isAdmin" (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
-                            <mat-icon>plus_one</mat-icon> Add new
+                            <mat-icon>plus_one</mat-icon> {{ 'dashboard.products-list.new' | translate }}
                         </button>
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <a *ngIf="user.isAdmin" mat-flat-button (click)="adminProduct(element)">Edit</a>
+                        <a *ngIf="user.isAdmin" mat-flat-button (click)="adminProduct(element)">{{ 'common.edit' | translate }}</a>
                         <button [disabled]="!isOpenStore" mat-stroked-button (click)="addToCar(element)" color="primary">
-                            <mat-icon>add_shopping_cart</mat-icon> Add
+                            <mat-icon>add_shopping_cart</mat-icon> {{ 'dashboard.products-list.add' | translate }}
                         </button>
                     </td>
                 </ng-container>

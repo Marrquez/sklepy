@@ -1,15 +1,60 @@
 {
+    "common": {
+        "ok": "Ok",
+        "cancel": "Cancelar",
+        "add": "Agregar",
+        "edit": "Editar",
+        "save": "Guardar",
+        "category": "Categoria",
+        "total": "Total"
+    },
     "top-navbar": {
-        "language": "Idioma",
+        "language": "Lenguaje",
         "store": "Tienda",
         "sells": "Ventas",
         "transactions": "Historial",
         "logout": "Salir"
     },
     "dashboard": {
-        "welcome": "Bienvenid@, {{value}}!"
+        "welcome": "Bienvenid@, {{value}}!",
+        "filters": {
+            "search": "Buscar...",
+            "all": "Todos",
+            "food": "Comidas",
+            "drinks": "Bebidas",
+            "medicines": "Drogueria & Aseo",
+            "other": "Otros"
+        },
+        "products-list": {
+            "code": "Codigo",
+            "name": "Nombre",
+            "value": "Valor",
+            "price": "Precio",
+            "earn": "Ganancia",
+            "disp": "Disp.",
+            "new": "Nuevo producto",
+            "add": "Agregar",
+            "units": "unidades"
+        },
+        "shopping-car": {
+            "description": "Descripcion",
+            "own": "Propia",
+            "checkout": "Vender"
+        },
+        "new-product": {
+            "new": "Nuevo producto",
+            "name": "Nombre",
+            "value": "Valor",
+            "units": "Unidades",
+            "quantity": "Cantidad",
+            "price": "Precio",
+            "available": "Disponible"
+        }
     },
-    "sells": {},
+    "sells": {
+        "open-store": "Abrir caja",
+        "close-store": "Cerrar caja"
+    },
     "transactions": {},
     "footer": {}
 }

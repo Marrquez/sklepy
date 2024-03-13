@@ -13,7 +13,17 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'top-navbar',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatButtonModule, MatIconModule, RouterModule, MatSelectModule, MatFormFieldModule, MatInputModule, TranslateModule],
+  imports: [
+    MatToolbarModule, 
+    FormsModule, 
+    MatButtonModule, 
+    MatIconModule, 
+    RouterModule, 
+    MatSelectModule, 
+    MatFormFieldModule, 
+    MatInputModule, 
+    TranslateModule
+  ],
   providers: [AuthService],
   templateUrl: './top-navbar.component.html',
   styleUrl: './top-navbar.component.scss'

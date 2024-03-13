@@ -2,8 +2,8 @@
     <thead>
         <tr>
             <th (click)="toggleDrawer()"><mat-icon>keyboard_arrow_left</mat-icon></th>
-            <th colspan="2">Desc.</th>
-            <th class="dashboard__amount">Total</th>
+            <th colspan="2">{{ 'dashboard.shopping-car.description' | translate }}</th>
+            <th class="dashboard__amount">{{ 'common.total' | translate }}</th>
         </tr>
     </thead>
     <tbody>
@@ -22,22 +22,22 @@
         
         <tr>
             <td></td>
-            <td colspan="2">Total</td>
+            <td colspan="2">{{ 'common.total' | translate }}</td>
             <td class="dashboard__amount">{{totalAmount | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
         </tr>
 
         <tr>
             <td colspan="4">
-                <mat-checkbox [disabled]="totalAmount === 0" class="example-margin" [checked]="checked" (click)="toggleCheck()">Own sell</mat-checkbox>
+                <mat-checkbox [disabled]="totalAmount === 0" class="example-margin" [checked]="checked" (click)="toggleCheck()">{{ 'dashboard.shopping-car.own' | translate }}</mat-checkbox>
             </td>
         </tr>
         <tr>
             <td colspan="4">
                 <button mat-flat-button color="basic" (click)="cancel()">
-                    Cancel
+                    {{ 'common.cancel' | translate }}
                 </button>
                 <button [disabled]="totalAmount === 0 || !isValidSell" mat-flat-button color="primary" (click)="checkoutProducts()">
-                    Checkout
+                    {{ 'dashboard.shopping-car.checkout' | translate }}
                 </button>
             </td>
         </tr>
