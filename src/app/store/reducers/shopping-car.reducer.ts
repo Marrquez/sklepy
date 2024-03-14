@@ -19,7 +19,7 @@ export const shoppingCarReducer = createReducer(
     const productIndex = state.products.findIndex((p: Product) => p.id === action.product.id);
     
     if(productIndex !== -1) {
-      products[productIndex] = {...products[productIndex], quantity: products[productIndex].quantity + 1};
+      products[productIndex] = {...products[productIndex], units: products[productIndex].units + 1};
 
       return {
         ...state,

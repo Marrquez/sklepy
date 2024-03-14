@@ -24,6 +24,7 @@ export interface TransactionDetail {
     incomes: number;
     outcomes: number;
     earnings: number;
+    list: Array<string>;
 }
 
 export interface Transaction {

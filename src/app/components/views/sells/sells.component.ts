@@ -7,16 +7,21 @@ import { Sell, Transaction } from '../../../models/product.model';
 import { EmptySells, GetSells, OpenSells } from '../../../store/actions/sells.actions';
 import { SetTransactions } from '../../../store/actions/transactions.actions';
 import { TransactionService } from '../../../services/transactions.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sells',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    TranslateModule
+  ],
   templateUrl: './sells.component.html',
   styleUrl: './sells.component.scss'
 })
 export class SellsComponent implements OnInit {
-  currentDate = new Date();
+  currentDate = (new Date()).toLocaleDateString();
   sells: Array<Sell> = [];
   transactions:Array<Transaction> = [];
   totalIncome = 0;
@@ -26,6 +31,7 @@ export class SellsComponent implements OnInit {
 
   constructor(
     private store: Store<State>,
+    public translate: TranslateService,
     private transactionService: TransactionService
   ) {
     store.select(selectSellsState).subscribe(sellsState => {
@@ -49,11 +55,12 @@ export class SellsComponent implements OnInit {
     if(this.openStore) {
       if((this.totalIncome + this.totalOutcome + this.earnings) !== 0) {
         const newTransaction: Transaction = {
-          date: this.currentDate.toLocaleDateString(),
+          date: this.currentDate,
           details: [{
             incomes: this.totalIncome,
             outcomes: this.totalOutcome,
-            earnings: this.earnings
+            earnings: this.earnings,
+            list: this.getSelledProducts()
           }]
         };
 
@@ -68,6 +75,21 @@ export class SellsComponent implements OnInit {
       this.store.dispatch(EmptySells());
       this.store.dispatch(OpenSells());
     }
+  }
+
+  private getSelledProducts(): Array<string> {
+    let products: Array<string> = [];
+
+    this.sells.forEach((sell) => {
+      const own = sell.own ? "[P]" : "";
+
+      sell.products.forEach((product) => {
+        const amount = sell.own ? product.units * product.value : product.units * product.price;
+        products.push(product.name + " [" + product.units +  "][" + amount + "]"  + own);
+      });
+    });
+
+    return products;
   }
 
   private getUpdatedTransactions(transaction: Transaction): Array<Transaction> {

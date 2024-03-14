@@ -38,7 +38,7 @@ export const sellsReducer = createReducer(
       newSells = [...newSells, sell];
 
       sell.products.forEach((product) => {
-        const [price, value] = [product.quantity * product.price, product.quantity * product.value];
+        const [price, value] = [product.units * product.price, product.units * product.value];
 
         if(sell.own) {
           outcomes += value;

@@ -1,60 +1,83 @@
 {
     "common": {
-        "ok": "Ok",
-        "cancel": "Cancelar",
         "add": "Agregar",
-        "edit": "Editar",
-        "save": "Guardar",
+        "cancel": "Cancelar",
         "category": "Categoria",
-        "total": "Total"
+        "close": "Cerrar",
+        "earning": "Ganancia",
+        "edit": "Editar",
+        "income": "Ingreso",
+        "save": "Guardar",
+        "total": "Total",
+        "ok": "Ok",
+        "open": "Abrir",
+        "outcome": "Egreso"
+    },
+    "dashboard": {
+        "filters": {
+            "all": "Todos",
+            "cleaning": "Limpieza",
+            "drinks": "Bebidas",
+            "food": "Comidas",
+            "medicines": "Drogueria y limpieza",
+            "other": "Otros",
+            "search": "Buscar...",
+            "snacks": "Mecato",
+            "test": "Prueba"
+        },
+        "new-product": {
+            "available": "Disponible",
+            "name": "Nombre",
+            "new": "Nuevo producto",
+            "price": "Precio",
+            "quantity": "Cantidad",
+            "units": "Unidades",
+            "value": "Valor"
+        },
+        "products-list": {
+            "add": "Anadir",
+            "code": "Codigo",
+            "disp": "Disp.",
+            "earn": "Ganancia",
+            "name": "Nombre",
+            "new": "Crear producto",
+            "price": "Precio",
+            "units": "Unidades",
+            "value": "Valor"
+        },
+        "shopping-car": {
+            "checkout": "Vender",
+            "description": "Descripcion",
+            "own": "Propio"
+        },
+        "welcome": "Bienvenid@, {{value}}!"
+    },
+    "footer": {},
+    "login": {
+        "title": "Iniciar sesion",
+        "email": "Correo",
+        "pswd": "Contrasenia",
+        "login": "Entrar"
+    },
+    "sells": {
+        "close-store": "Cerrar caja",
+        "date": "Ventas para hoy {{value}}",
+        "detail": "Detalle",
+        "open-store": "Abrir caja",
+        "summary": "Resumen",
+        "title": "La caja se encuentra cerrada...",
+        "total-earning": "Ganancias",
+        "total-income": "Total ingresos",
+        "total-outcome": "Total egresos" 
     },
     "top-navbar": {
         "language": "Lenguaje",
-        "store": "Tienda",
+        "logout": "Salir",
         "sells": "Ventas",
-        "transactions": "Historial",
-        "logout": "Salir"
+        "store": "Tienda",
+        "transactions": "Historial"
     },
-    "dashboard": {
-        "welcome": "Bienvenid@, {{value}}!",
-        "filters": {
-            "search": "Buscar...",
-            "all": "Todos",
-            "food": "Comidas",
-            "drinks": "Bebidas",
-            "medicines": "Drogueria & Aseo",
-            "other": "Otros"
-        },
-        "products-list": {
-            "code": "Codigo",
-            "name": "Nombre",
-            "value": "Valor",
-            "price": "Precio",
-            "earn": "Ganancia",
-            "disp": "Disp.",
-            "new": "Nuevo producto",
-            "add": "Agregar",
-            "units": "unidades"
-        },
-        "shopping-car": {
-            "description": "Descripcion",
-            "own": "Propia",
-            "checkout": "Vender"
-        },
-        "new-product": {
-            "new": "Nuevo producto",
-            "name": "Nombre",
-            "value": "Valor",
-            "units": "Unidades",
-            "quantity": "Cantidad",
-            "price": "Precio",
-            "available": "Disponible"
-        }
-    },
-    "sells": {
-        "open-store": "Abrir caja",
-        "close-store": "Cerrar caja"
-    },
-    "transactions": {},
-    "footer": {}
+    "transactions": {
+        "date": "Fecha"
+    }
 }

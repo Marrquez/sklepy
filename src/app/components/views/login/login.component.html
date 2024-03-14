@@ -1,9 +1,9 @@
 <br />
 <section id="contact-form">
-    <h1>Iniciar Sesión</h1>
+    <h1>{{ "login.title" | translate }}</h1>
         <form [formGroup]="loginForm">
           <div class="form-group">
-            <label class="small">Correo Electrónico</label>
+            <label class="small">{{ "login.email" | translate }}</label>
             <input type="email"
                    formControlName="email"
                    class="form-control col-sm-6"
@@ -11,7 +11,7 @@
                    placeholder="example@mail.com">
           </div>
           <div class="form-group">
-            <label class="small">Contraseña</label>
+            <label class="small">{{ "login.pswd" | translate }}</label>
             <input type="password" class="form-control col-sm-6" formControlName="password" required>
           </div>
           <div class="col-sm-8">
@@ -19,7 +19,7 @@
             <label class="success">{{successMessage}}</label>
           </div>
           <div>
-            <button type="submit" (click)="loginUser(loginForm.value)" class="btn btn-small btn-blue">Ingresar</button>
+            <button type="submit" (click)="loginUser(loginForm.value)" class="btn btn-small btn-blue">{{ "login.login" | translate }}</button>
           </div>
         </form>
 </section>

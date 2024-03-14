@@ -82,7 +82,7 @@ export class DashboardComponent {
     store.select(selectShoppingCarList).subscribe(products => {
       this.shoppingCarProducts = products;
       this.carItems = this.shoppingCarProducts.reduce((sum, product) => {
-        return sum + product.quantity;
+        return sum + product.units;
       }, 0);
     });
 

@@ -21,6 +21,7 @@
                       <option value="drink">{{ 'dashboard.filters.drinks' | translate }}</option>
                       <option value="medicine">{{ 'dashboard.filters.medicines' | translate }}</option>
                       <option value="other">{{ 'dashboard.filters.other' | translate }}</option>
+                      <option *ngIf="user.isAdmin" value="test">{{ 'dashboard.filters.test' | translate }}</option>
                     </select>
                 </mat-form-field>
             </form>

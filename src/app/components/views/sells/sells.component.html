@@ -2,15 +2,20 @@
     <div class="sells__header">
         <div>
             @if (!openStore) {
-                <span>The Store is currently close</span>
+                <span>{{ 'sells.title' | translate }}</span>
             }
             @if (openStore) {
-                <span>Sells for {{ currentDate | date: 'dd/MM/yyyy' }}</span>
+                <span>{{ 'sells.date' | translate: {value: currentDate} }}</span>
             }
         </div>
         <div class="dashboard__header-rigth">
             <button mat-flat-button color="accent" (click)="openCloseSells()">
-                {{ openStore ? 'Close' : 'Open' }}
+                @if (!openStore) {
+                    <span>{{ 'sells.open-store' | translate }}</span>
+                }
+                @if (openStore) {
+                    <span>{{ 'sells.close-store' | translate }}</span>
+                }
             </button>
         </div>
     </div>
@@ -18,30 +23,30 @@
         <table>
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Outcome</th>
-                    <th>Income</th>
+                    <th>{{ 'sells.detail' | translate}}</th>
+                    <th>{{ 'common.outcome' | translate}}</th>
+                    <th>{{ 'common.income' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
                 <ng-container  *ngFor="let sell of sells">
                     <tr *ngFor="let product of sell.products">
-                        <td>{{product.name}} x {{product.quantity}}</td>
+                        <td>{{product.name}} x {{product.units}}</td>
                         <td>
                             @if (sell.own) {
-                                <span>{{product.value * product.quantity | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+                                <span>{{product.value * product.units | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
                             }
                         </td>
                         <td>
                             @if (!sell.own) {
-                                <span>{{product.price * product.quantity | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+                                <span>{{product.price * product.units | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
                             }
                         </td>
                     </tr>
                 </ng-container>
                 
                 <tr>
-                    <td>Total</td>
+                    <td>{{ 'common.total' | translate}}</td>
                     <td>{{totalOutcome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
                     <td>{{totalIncome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
                 </tr>
@@ -51,20 +56,20 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="2"><h1>Summary</h1></th>
+                        <th colspan="2"><h1>{{ 'sells.summary' | translate}}</h1></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Total income</td>
+                        <td>{{ "sells.total-income" | translate }}</td>
                         <td>{{totalIncome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
                     </tr>
                     <tr>
-                        <td>Total Outcome</td>
+                        <td>{{ "sells.total-outcome" | translate }}</td>
                         <td>{{totalOutcome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
                     </tr>
                     <tr>
-                        <td>Total earnings</td>
+                        <td>{{ 'sells.total-earning' | translate }}</td>
                         <td>{{earnings | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
                     </tr>
                 </tbody>

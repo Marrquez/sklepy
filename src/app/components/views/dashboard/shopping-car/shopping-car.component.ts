@@ -46,7 +46,7 @@ export class ShoppingCarComponent {
 
   updateTotalAmount(): void {
     this.totalAmount = this.shoppingCarProducts.reduce((sum, product) => {
-      return sum + (product.quantity * product.price);
+      return sum + (product.units * product.price);
     }, 0);
   }
 

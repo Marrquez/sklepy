@@ -20,8 +20,8 @@ export class AuthService {
   loginWithEmail(email: string, password: string): Promise<any> {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((data:any) => {
-        localStorage.setItem('userData', JSON.stringify({name: data.email, uid: data.uid, isAdmin: data.uid === this.adminID}));
-        this.store.dispatch(AddUser({user: {name: data.user.email, uid: data.user.uid, isAdmin: data.uid === this.adminID}}));
+        localStorage.setItem('userData', JSON.stringify({name: data.user.email, uid: data.user.uid, isAdmin: data.user.uid === this.adminID}));
+        this.store.dispatch(AddUser({user: {name: data.user.email, uid: data.user.uid, isAdmin: data.user.uid === this.adminID}}));
       })
       .catch((error) => {
         console.log(error)

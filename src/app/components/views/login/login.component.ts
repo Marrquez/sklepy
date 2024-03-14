@@ -2,11 +2,17 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ReactiveFormsModule,
+    TranslateModule
+  ],
   providers: [AuthService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -19,7 +25,10 @@ export class LoginComponent {
     password: new FormControl(),
   });
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    public translate: TranslateService
+  ) { }
 
   loginUser(value: any): void {
     this.authService.loginWithEmail(value.email, value.password)

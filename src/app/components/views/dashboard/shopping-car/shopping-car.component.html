@@ -14,9 +14,9 @@
                         <mat-icon>remove</mat-icon>
                     </button>
                 </td>
-                <td>{{item.quantity}}</td>
+                <td>{{item.units}}</td>
                 <td>{{item.name}}</td>
-                <td class="dashboard__amount">{{item.price * item.quantity  | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                <td class="dashboard__amount">{{item.price * item.units  | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
             </tr>
         </ng-container>
         
