@@ -59,7 +59,7 @@ export class DashboardComponent {
     isAdmin: false
   };
   selectedCategory = 'all';
-  displayedColumns: string[] = ['code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
+  displayedColumns: string[] = ['index', 'code', 'name', 'value', 'price', 'win', 'available', 'status', 'actions'];
   @ViewChild(ShoppingCarComponent) shoppingCar: ShoppingCarComponent;
 
   constructor(

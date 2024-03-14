@@ -17,11 +17,13 @@
                         (change)="updateProductsList()" 
                     >
                       <option value="all">{{ 'dashboard.filters.all' | translate }}</option>
-                      <option value="foot">{{ 'dashboard.filters.food' | translate }}</option>
                       <option value="drink">{{ 'dashboard.filters.drinks' | translate }}</option>
+                      <option value="foot">{{ 'dashboard.filters.food' | translate }}</option>
                       <option value="medicine">{{ 'dashboard.filters.medicines' | translate }}</option>
-                      <option value="other">{{ 'dashboard.filters.other' | translate }}</option>
+                      <option value="cleaning">{{ 'dashboard.filters.cleaning' | translate }}</option>
+                      <option value="snack">{{ 'dashboard.filters.snacks' | translate }}</option>
                       <option *ngIf="user.isAdmin" value="test">{{ 'dashboard.filters.test' | translate }}</option>
+                      <option value="other">{{ 'dashboard.filters.other' | translate }}</option>
                     </select>
                 </mat-form-field>
             </form>
@@ -45,10 +47,10 @@
     <mat-drawer-container autosize id="wrapper">
         <div class="dashboard__wrapper">
             <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
-                <!-- <ng-container matColumnDef="index">
+                <ng-container matColumnDef="index">
                     <th mat-header-cell *matHeaderCellDef>#</th>
                     <td mat-cell *matCellDef="let index = index"><small>{{index + 1}}</small></td>
-                </ng-container> -->
+                </ng-container>
                 <ng-container matColumnDef="code">
                     <th mat-header-cell *matHeaderCellDef> {{ 'dashboard.products-list.code' | translate }} </th>
                     <td mat-cell *matCellDef="let element"> {{element.id.substr(0,2) + element.id.substr(element.id.length - 2,2)}} </td>
