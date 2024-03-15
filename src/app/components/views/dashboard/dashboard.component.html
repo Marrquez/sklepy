@@ -112,13 +112,13 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef stickyEnd> 
                         <button *ngIf="user.isAdmin" (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
-                            <small>{{ 'dashboard.products-list.new' | translate }}</small>
+                            <mat-icon>plus_one</mat-icon> {{ 'dashboard.products-list.new' | translate }}
                         </button>
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <a *ngIf="user.isAdmin" mat-flat-button (click)="adminProduct(element)">{{ 'common.edit' | translate }}</a>
-                        <button [disabled]="!isOpenStore" mat-stroked-button (click)="addToCar(element)" color="primary">
-                            <mat-icon>add_shopping_cart</mat-icon> {{ 'dashboard.products-list.add' | translate }}
+                        <a *ngIf="user.isAdmin" mat-mini-fab (click)="adminProduct(element)"><mat-icon>edit</mat-icon></a>
+                        <button [disabled]="!isOpenStore" mat-mini-fab (click)="addToCar(element)" color="primary">
+                            <mat-icon>add_shopping_cart</mat-icon>
                         </button>
                     </td>
                 </ng-container>
