@@ -1,7 +1,7 @@
 <div class="dashboard">
     <div class="dashboard__sub-header">
         <div class="dashboard__sub-header-left">
-            <button mat-button [matMenuTriggerFor]="userMenu">{{ 'dashboard.welcome' | translate:{value: username} }}</button>
+            <button mat-button [matMenuTriggerFor]="userMenu"><mat-icon>keyboard_arrow_down</mat-icon> {{ 'dashboard.welcome' | translate:{value: username} }}</button>
             <mat-menu #userMenu="matMenu">
                 <button (click)="logout()" mat-menu-item>{{ 'top-navbar.logout' | translate }}</button>
             </mat-menu>
