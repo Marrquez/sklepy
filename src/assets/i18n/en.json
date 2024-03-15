@@ -50,7 +50,7 @@
             "description": "Description",
             "own": "Own sell"
         },
-        "welcome": "Welcome, {{value}}!"
+        "welcome": "Hi, {{value}}!"
     },
     "footer": {},
     "login": {

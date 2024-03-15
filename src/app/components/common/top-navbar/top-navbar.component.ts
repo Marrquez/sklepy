@@ -33,7 +33,6 @@ export class TopNavbarComponent implements OnInit {
   langs:any = [];
 
   constructor(
-    private authService: AuthService,
     public translate: TranslateService
   ) {
     this.translate.setDefaultLang('es');
@@ -50,9 +49,5 @@ export class TopNavbarComponent implements OnInit {
 
   setTransLanguage(){
     this.translate.use(this.language);
-  }
-
-  logout(): void {
-    this.authService.logout();
   }
 }

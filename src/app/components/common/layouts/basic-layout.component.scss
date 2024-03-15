@@ -1,8 +1,30 @@
+@import '../../../../assets/css/break-points';
+
 :host {
     width: 100%;
 
-    .wrapper-content {
+    .wrapper {
         display: flex;
-        padding: 15px;
+        justify-content: center;
+
+        &__page {
+            width: 100%;
+        }
+    }
+
+    @media only screen and (min-width: $s) {
+        .wrapper {
+            &__page {
+                width: 80%;
+            }
+        }
+    }
+
+    @media only screen and (min-width: $l) {
+        .wrapper {
+            &__page {
+                width: 60%;
+            }
+        }
     }
 }

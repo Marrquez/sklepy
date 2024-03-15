@@ -23,6 +23,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,7 +43,7 @@ import { FormsModule } from '@angular/forms';
     MatSelectModule,
     FormsModule
   ],
-  providers: [SklepyService],
+  providers: [SklepyService, AuthService],
   schemas: [NO_ERRORS_SCHEMA],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -65,6 +66,7 @@ export class DashboardComponent {
   constructor(
     private store: Store<State>,
     public dialog: Dialog,
+    private authService: AuthService,
     private _liveAnnouncer: LiveAnnouncer,
     private sklepyService: SklepyService,
     private sellsService: SellsService
@@ -191,6 +193,10 @@ export class DashboardComponent {
 
   openStore(): void {
     this.store.dispatch(OpenSells());
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
   get username(): string {

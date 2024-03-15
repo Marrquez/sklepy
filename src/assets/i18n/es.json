@@ -50,7 +50,7 @@
             "description": "Descripcion",
             "own": "Propio"
         },
-        "welcome": "Bienvenid@, {{value}}!"
+        "welcome": "Hola, {{value}}!"
     },
     "footer": {},
     "login": {

@@ -1,6 +1,6 @@
-<mat-toolbar>
-    <div>
-        <mat-form-field>
+<mat-toolbar class="top-navbar">
+    <div class="top-navbar__left">
+        <mat-form-field subscriptSizing="dynamic" class="top-navbar__lang">
             <mat-label>{{ 'top-navbar.language' | translate }}</mat-label>
             <select 
                 matNativeControl
@@ -13,17 +13,15 @@
             </select>
         </mat-form-field>
     </div>
-    <span class="example-spacer"></span>
-    <button routerLink="/dashboard" mat-button aria-label="Example icon-button with heart icon">
-        <small>{{ 'top-navbar.store' | translate }}</small>
-    </button>
-    <button routerLink="/sells" mat-button aria-label="Example icon-button with share icon">
-        <small>{{ 'top-navbar.sells' | translate }}</small>
-    </button>
-    <button routerLink="/history" mat-button aria-label="Example icon-button with share icon">
-        <small>{{ 'top-navbar.transactions' | translate }}</small>
-    </button>
-    <button (click)="logout()" mat-button aria-label="Example icon-button with share icon">
-        <small>{{ 'top-navbar.logout' | translate }}</small>
-    </button>
+    <div class="top-navbar__right">
+        <button routerLink="/dashboard" routerLinkActive="active" mat-button aria-label="Example icon-button with heart icon">
+            <small>{{ 'top-navbar.store' | translate }}</small>
+        </button>
+        <button routerLink="/sells" routerLinkActive="active" mat-button aria-label="Example icon-button with share icon">
+            <small>{{ 'top-navbar.sells' | translate }}</small>
+        </button>
+        <button routerLink="/history" routerLinkActive="active" mat-button aria-label="Example icon-button with share icon">
+            <small>{{ 'top-navbar.transactions' | translate }}</small>
+        </button>
+    </div>
 </mat-toolbar>

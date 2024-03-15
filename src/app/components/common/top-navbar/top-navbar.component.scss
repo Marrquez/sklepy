@@ -1,4 +1,34 @@
 @import '../../../../assets/css/colors';
-.example-spacer {
-flex: 1 1 auto;
+@import '../../../../assets/css/break-points';
+
+:host {
+    .top-navbar {
+        background-color: $white;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+
+        &__left {
+            display: flex;
+            width: 106px;
+        }
+
+        &__right {
+            button {
+                border-radius: 0;
+                border-bottom: 1px solid $line;
+                height: 56px;
+
+                &.active {
+                    border-bottom: 3px solid $primary-dark;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: $xs) {
+        .top-navbar {
+            padding: 0 15px;
+        }
+    }
 }

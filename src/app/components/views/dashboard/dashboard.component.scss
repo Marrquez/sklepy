@@ -2,7 +2,7 @@
 
 :host {
     .mdc-data-table__cell, .mdc-data-table__header-cell {
-        padding: 5px 8px;
+        padding: 0 8px;
     }
 
     .mdc-data-table__cell {
@@ -11,17 +11,37 @@
 
     .dashboard {
         &__header {
-            padding: 10px;
+            padding: 0 10px;
+            justify-content: space-between;
+
+            &-form {
+                display: flex;
+
+                .mat-mdc-form-field {
+                    margin: 0 3px;
+                }
+            }
+        }
+
+        &__sub-header {
             display: flex;
             justify-content: space-between;
-            
-            &-rigth {
-                display: flex;
-                padding: 10px 0;
+            margin: 15px;
+            border-bottom: 0.5px solid $line;
+            border-top: 0.5px solid $line;
 
+            &-left {
                 button {
-                    margin: 0 0 0 16px;
-                    height: 40px;
+                    height: 48px;
+                }
+            }
+
+            &-right {
+                display: flex;
+                align-self: center;
+                
+                button {
+                    margin: 0 8px;
                 }
             }
         }
@@ -30,13 +50,18 @@
             min-width: 300px;
         }
 
+        &__wrapper-container {
+            background-color: $white;
+        }
+
         &__wrapper {
             border: 1px solid $line; 
-            // border-right: 1px solid $line; 
             min-height: 450px;
             background-color: $white;
             border-radius: 5px;
             max-height: 600px;
+            overflow: auto;
+            margin-top: 3px;
 
             small {
                 color: $label;

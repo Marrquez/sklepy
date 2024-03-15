@@ -1,14 +1,36 @@
 <div class="dashboard">
-    <p>{{ 'dashboard.welcome' | translate:{value: username} }}</p>
-    <div class="dashboard__header">
-        <div> 
-            <form class="example-form">
-                <mat-form-field class="example-full-width">
+    <div class="dashboard__sub-header">
+        <div class="dashboard__sub-header-left">
+            <button mat-button [matMenuTriggerFor]="userMenu">{{ 'dashboard.welcome' | translate:{value: username} }}</button>
+            <mat-menu #userMenu="matMenu">
+                <button (click)="logout()" mat-menu-item>{{ 'top-navbar.logout' | translate }}</button>
+            </mat-menu>
+        </div>
+        <div class="dashboard__sub-header-right">
+            <button (click)="drawer.toggle()" [disabled]="carItems === 0" mat-mini-fab color="accent" aria-label="Car icon">
+                <mat-icon>shopping_cart</mat-icon> {{carItems}}
+            </button>
+            <button *ngIf="!isOpenStore" mat-mini-fab [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openStore()">
+                    <mat-icon>launch</mat-icon>
+                    <span>{{ 'sells.open-store' | translate }}</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+    
+    <mat-drawer-container autosize class="dashboard__wrapper-container">
+        <div class="dashboard__header">
+            <form class="dashboard__header-form">
+                <mat-form-field subscriptSizing="dynamic" class="example-full-width">
                   <mat-label>{{ 'dashboard.filters.search' | translate }}</mat-label>
                   <input type="text" matInput placeholder="Type to search..." (keyup)="applyFilter($event)" #input>
                   <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field subscriptSizing="dynamic">
                     <mat-label>{{ 'common.category' | translate }}</mat-label>
                     <select 
                         matNativeControl
@@ -28,23 +50,7 @@
                 </mat-form-field>
             </form>
         </div>
-        <div class="dashboard__header-rigth">
-            <button (click)="drawer.toggle()" [disabled]="carItems === 0" mat-mini-fab color="accent" aria-label="Car icon">
-                <mat-icon>shopping_cart</mat-icon> {{carItems}}
-            </button>
-            <button *ngIf="!isOpenStore" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="openStore()">
-                    <mat-icon>launch</mat-icon>
-                    <span>{{ 'sells.open-store' | translate }}</span>
-                </button>
-            </mat-menu>
-        </div>
-    </div>
-    
-    <mat-drawer-container autosize id="wrapper">
+
         <div class="dashboard__wrapper">
             <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
                 <ng-container matColumnDef="index">
@@ -106,7 +112,7 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef stickyEnd> 
                         <button *ngIf="user.isAdmin" (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
-                            <mat-icon>plus_one</mat-icon> {{ 'dashboard.products-list.new' | translate }}
+                            <mat-icon>plus_one</mat-icon> <small>{{ 'dashboard.products-list.new' | translate }}</small>
                         </button>
                     </th>
                     <td mat-cell *matCellDef="let element">
