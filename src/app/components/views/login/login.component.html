@@ -1,25 +1,29 @@
-<br />
-<section id="contact-form">
-    <h1>{{ "login.title" | translate }}</h1>
-        <form [formGroup]="loginForm">
-          <div class="form-group">
-            <label class="small">{{ "login.email" | translate }}</label>
-            <input type="email"
-                   formControlName="email"
-                   class="form-control col-sm-6"
-                   required
-                   placeholder="example@mail.com">
-          </div>
-          <div class="form-group">
-            <label class="small">{{ "login.pswd" | translate }}</label>
-            <input type="password" class="form-control col-sm-6" formControlName="password" required>
-          </div>
-          <div class="col-sm-8">
-            <label class="error">{{errorMessage}}</label>
-            <label class="success">{{successMessage}}</label>
-          </div>
-          <div>
-            <button type="submit" (click)="loginUser(loginForm.value)" class="btn btn-small btn-blue">{{ "login.login" | translate }}</button>
-          </div>
-        </form>
+<section class="login">
+  <h1 class="title">{{ "login.title" | translate }}</h1>
+  <form [formGroup]="loginForm" class="login__form">
+    <mat-form-field>
+      <mat-label>{{ 'login.email' | translate }}</mat-label>
+      <input matInput 
+        required="true" 
+        type="email"
+        formControlName="email"
+        placeholder="example@mail.com"
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ 'login.pswd' | translate }}</mat-label>
+      <input matInput 
+        required="true" 
+        type="password"
+        formControlName="password"
+      >
+    </mat-form-field>
+    <div>
+      <label class="error">{{errorMessage}}</label>
+      <label class="success">{{successMessage}}</label>
+    </div>
+    <div>
+      <button type="submit" mat-flat-button color="primary" (click)="loginUser(loginForm.value)">{{ 'login.login' | translate }}</button>
+    </div>
+  </form>
 </section>

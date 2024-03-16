@@ -3,6 +3,9 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +14,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     CommonModule, 
     FormsModule, 
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [AuthService],
   templateUrl: './login.component.html',
