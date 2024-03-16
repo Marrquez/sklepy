@@ -39,8 +39,8 @@ export const shoppingCarReducer = createReducer(
     const products = [...state.products];
     const productIndex = state.products.findIndex((p: Product) => p.id === action.id);
 
-    if(products[productIndex].quantity > 1) {
-      products[productIndex] = {...products[productIndex], quantity: products[productIndex].quantity - 1};
+    if(products[productIndex].units > 1) {
+      products[productIndex] = {...products[productIndex], units: products[productIndex].units - 1};
 
       return {
         ...state,

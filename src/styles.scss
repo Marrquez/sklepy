@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { }
+@import 'assets/css/colors.scss';
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.title {
+    color: $primary-dark;
+    font-size: 20px;
+    letter-spacing: 0.2px;
+    font-weight: 500;
+}
+.subtitle {
+    color: $title-primary;
+    font-size: 11px;
+    letter-spacing: 0.1px;
+    font-weight: 500;
+}
+.label {
+    color: $text-primary;
+    font-size: 11px;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+}
