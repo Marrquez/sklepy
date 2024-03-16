@@ -210,7 +210,18 @@ export class DashboardComponent {
   }
 
   private filterProductsList(products: Array<Product>, category: string): Array<Product> {
-    const prods = category === 'all' ? [...products] : products.filter(product => product.category === category);
+    let prods: Array<Product> = [];
+    
+    if(category === 'all') {
+      if(this.user.isAdmin) {
+        prods = [...products];
+      } else {
+        prods = products.filter(product => product.category !== 'test');
+      }
+    } else {
+      prods = products.filter(product => product.category === category);
+    }
+
     return [...prods].sort((a,b) => a.name.localeCompare(b.name));
   }
 
