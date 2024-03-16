@@ -1,15 +1,15 @@
-<h1>{{ 'dashboard.new-product.new' | translate }}</h1>
-<form class="example-form">
+<h1>{{ (data.id ? 'common.edit' : 'dashboard.new-product.new') | translate }}</h1>
+<form class="new-product-form">
     <table class="example-full-width" cellspacing="0">
         <tr>
             <td>
-                <mat-form-field class="example-full-width">
+                <mat-form-field subscriptSizing="dynamic" class="example-full-width-row">
                     <mat-label>{{ 'dashboard.new-product.name' | translate }}</mat-label>
                     <input matInput [ngModelOptions]="{standalone: true}" placeholder="Ex. Arroz" [(ngModel)]="data.name">
                 </mat-form-field>
             </td>
             <td>
-                <mat-form-field class="example-full-width">
+                <mat-form-field subscriptSizing="dynamic" class="example-full-width-row">
                     <mat-label>{{ 'dashboard.new-product.value' | translate }}</mat-label>
                     <input matInput type="number" [ngModelOptions]="{standalone: true}" placeholder="Ex. 1500" [(ngModel)]="data.value">
                 </mat-form-field>
@@ -17,13 +17,13 @@
         </tr>
         <tr>
             <td>
-                <mat-form-field class="example-full-width">
+                <mat-form-field subscriptSizing="dynamic" class="example-full-width-row">
                     <mat-label>{{ 'dashboard.new-product.units' | translate }}</mat-label>
                     <input matInput type="number" [ngModelOptions]="{standalone: true}" placeholder="Ex. 15" [(ngModel)]="data.units">
                 </mat-form-field>
             </td>
             <td>
-                <mat-form-field class="example-full-width">
+                <mat-form-field subscriptSizing="dynamic" class="example-full-width-row">
                     <mat-label>{{ 'dashboard.new-product.quantity' | translate }}</mat-label>
                     <input matInput type="number" [ngModelOptions]="{standalone: true}" placeholder="Ex. 3" [(ngModel)]="data.quantity">
                 </mat-form-field>
@@ -31,13 +31,13 @@
         </tr>
         <tr>
             <td>
-                <mat-form-field class="example-full-width">
+                <mat-form-field subscriptSizing="dynamic" class="example-full-width-row">
                     <mat-label>{{ 'dashboard.new-product.price' | translate }}</mat-label>
                     <input matInput type="number" [ngModelOptions]="{standalone: true}" placeholder="Ex. 2000" [(ngModel)]="data.price">
                 </mat-form-field>
             </td>
             <td>
-                <mat-form-field class="example-full-width">
+                <mat-form-field subscriptSizing="dynamic" class="example-full-width-row">
                     <mat-label>{{ 'dashboard.new-product.available' | translate }}</mat-label>
                     <input matInput type="number" [ngModelOptions]="{standalone: true}" placeholder="Ex. 30" [(ngModel)]="data.available">
                 </mat-form-field>
@@ -45,7 +45,7 @@
         </tr>
         <tr>
             <td>
-                <mat-form-field>
+                <mat-form-field subscriptSizing="dynamic" class="example-full-width-row">
                     <mat-label>{{ 'common.category' | translate }}</mat-label>
                     <select 
                         matNativeControl
@@ -65,8 +65,8 @@
             <td></td>
         </tr>
     </table>
-    <div>
-        <button mat-flat-button color="accent" (click)="dialogRef.close(data)">{{ 'common.save' | translate }}</button>
+    <div class="new-product-form__actions">
         <button mat-flat-button (click)="dialogRef.close()">{{ 'common.cancel' | translate }}</button>
-      </div>
+        <button mat-flat-button color="primary" (click)="dialogRef.close(data)">{{ 'common.save' | translate }}</button>
+    </div>
 </form>

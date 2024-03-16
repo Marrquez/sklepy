@@ -3,26 +3,40 @@
     background: #fff;
     border-radius: 8px;
     padding: 8px 16px 16px;
-}
 
-input {
-    margin: 8px 0;  
-}
+    input {
+        margin: 8px 0;  
+    }
+    
+    button + button {
+        margin-left: 8px;
+    }
+    
+    .new-product-form {
+        min-width: 150px;
+        max-width: 500px;
+        width: 100%;
 
-button + button {
-    margin-left: 8px;
-}
+        &__actions {
+            padding-top: 15px;
+            text-align: right;
+        }
+    }
+    
+    .example-full-width::ng-deep {
+        width: 100%;
 
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-}
+        mat-form-field {
+            margin: 2px;
+            width: 100%;
 
-.example-full-width {
-    width: 100%;
-}
-
-td {
-    padding-right: 8px;
+            .mat-mdc-text-field-wrapper {
+                padding: 0 5px;
+    
+                .mat-mdc-form-field-infix {
+                    width: auto;
+                }
+            }
+        }
+    }
 }
