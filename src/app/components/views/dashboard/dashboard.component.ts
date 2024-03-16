@@ -220,7 +220,7 @@ export class DashboardComponent {
     this.shoppingCarProducts.forEach((shoppingProduct) => {
       if(shoppingProduct.id) {
         const product = this.allProducts.find((p: Product) => p.id === shoppingProduct.id);
-        productQuantities.set(product.id, product.available - shoppingProduct.quantity);
+        productQuantities.set(product.id, product.available - shoppingProduct.units);
       }
     });
 

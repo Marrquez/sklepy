@@ -1,45 +1,40 @@
-<table>
-    <thead>
-        <tr>
-            <th (click)="toggleDrawer()"><mat-icon>keyboard_arrow_left</mat-icon></th>
-            <th colspan="2">{{ 'dashboard.shopping-car.description' | translate }}</th>
-            <th class="dashboard__amount">{{ 'common.total' | translate }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let item of shoppingCarProducts">
-            <tr [ngClass]="{'invalid': item.quantity > item.available}">
-                <td>
+<div class="shopping-car">
+    <div class="shopping-car__header">
+        <div class="shopping-car__header-back" (click)="toggleDrawer()"><mat-icon>keyboard_arrow_left</mat-icon></div>
+        <span class="label">{{ 'dashboard.shopping-car.description' | translate }}</span>
+        <span class="label">{{ 'common.total' | translate }}</span>
+    </div>
+    <div class="shopping-car__body">
+        <ul>
+            <ng-container *ngFor="let item of shoppingCarProducts">
+                <li [ngClass]="{'invalid': item.units > item.available}">
                     <button mat-mini-fab color="warn" (click)="remove(item);" aria-label="Example icon button with a filter list icon">
                         <mat-icon>remove</mat-icon>
                     </button>
-                </td>
-                <td>{{item.units}}</td>
-                <td>{{item.name}}</td>
-                <td class="dashboard__amount">{{item.price * item.units  | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-            </tr>
-        </ng-container>
-        
-        <tr>
-            <td></td>
-            <td colspan="2">{{ 'common.total' | translate }}</td>
-            <td class="dashboard__amount">{{totalAmount | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-        </tr>
-
-        <tr>
-            <td colspan="4">
-                <mat-checkbox [disabled]="totalAmount === 0" class="example-margin" [checked]="checked" (click)="toggleCheck()">{{ 'dashboard.shopping-car.own' | translate }}</mat-checkbox>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <button mat-flat-button color="basic" (click)="cancel()">
-                    {{ 'common.cancel' | translate }}
-                </button>
-                <button [disabled]="totalAmount === 0 || !isValidSell" mat-flat-button color="primary" (click)="checkoutProducts()">
-                    {{ 'dashboard.shopping-car.checkout' | translate }}
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                    <div class="shopping-car__body-desc">
+                        {{item.units}}
+                        <label>{{item.name}}</label>
+                    </div>
+                    <div class="shopping-car__body-val">
+                        <label>{{item.price * item.units  | currency : 'USD' : 'symbol' : '1.0-0'}}</label>
+                    </div>
+                </li>
+            </ng-container>
+            <li>
+                <label class="label">{{ 'common.total' | translate }}</label>
+                <label class="shopping-car__body-val total">{{totalAmount | currency : 'USD' : 'symbol' : '1.0-0'}}</label>
+            </li>
+        </ul>
+    </div>
+    <div class="shopping-car__checks" (click)="toggleCheck()">
+        <mat-checkbox [disabled]="totalAmount === 0" class="example-margin" [checked]="checked" ><label style="pointer-events: none;" class="subtitle">{{ 'dashboard.shopping-car.own' | translate }}</label></mat-checkbox>
+    </div>
+    <div class="shopping-car__footer">
+        <button mat-flat-button color="basic" (click)="cancel()">
+            {{ 'common.cancel' | translate }}
+        </button>
+        <button [disabled]="totalAmount === 0 || !isValidSell" mat-flat-button color="primary" (click)="checkoutProducts()">
+            {{ 'dashboard.shopping-car.checkout' | translate }}
+        </button>
+    </div>
+</div>

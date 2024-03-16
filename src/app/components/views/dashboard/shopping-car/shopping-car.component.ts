@@ -72,6 +72,6 @@ export class ShoppingCarComponent {
   }
 
   private checkValidSell(): void {
-    this.isValidSell = this.shoppingCarProducts.every((ele) => ele.quantity <= ele.available);
+    this.isValidSell = this.shoppingCarProducts.every((ele) => ele.units <= ele.available);
   }
 }

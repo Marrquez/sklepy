@@ -47,7 +47,7 @@
         },
         "shopping-car": {
             "checkout": "Cehckout",
-            "description": "Description",
+            "description": "Sell details",
             "own": "Own sell"
         },
         "welcome": "Hi, {{value}}!"
