@@ -85,7 +85,7 @@
                                             <label class="subtitle">{{element.price | currency : 'USD' : 'symbol' : '1.0-0'}}</label>
                                         </div>
                                         <div>
-                                            <span class="label">{{ 'dashboard.products-list.disp' | translate }}: </span>
+                                            <span class="label">{{ 'dashboard.new-product.available' | translate }}: </span>
                                             <label class="subtitle">{{element.available}}<span *ngIf="user.isAdmin">/{{element.units * element.quantity}}</span></label>
                                         </div>
                                     </div>
