@@ -17,7 +17,7 @@ export class TransactionsEffects {
             const formattedTransactions = {
               transactions: transactions.map((t: any) => ({
                 date: t.date,
-                details: t.details.map((d: any) => ({incomes: d.incomes, outcomes: d.outcomes, earnings: d.earnings}))
+                details: t.details.map((d: any) => ({incomes: d.incomes, outcomes: d.outcomes, earnings: d.earnings, list: d.list}))
               }))
             };
             

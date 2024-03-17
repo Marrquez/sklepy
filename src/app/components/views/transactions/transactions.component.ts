@@ -4,13 +4,19 @@ import { State, selectTransactionsList } from '../../../store/reducers';
 import { Transaction } from '../../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
+import {MatChipsModule} from '@angular/material/chips';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatChipsModule
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss'

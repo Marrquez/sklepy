@@ -1,20 +1,42 @@
-<table>
-    <thead>
-        <tr>
-            <th>{{ 'transactions.date' | translate }}</th>
-            <th>{{ 'common.income' | translate }}</th>
-            <th>{{ 'common.outcome' | translate }}</th>
-            <th>{{ 'common.earning' | translate }}</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="transactions"> 
+    <mat-accordion>
         <ng-container *ngFor="let transaction of transactions">
-            <tr *ngFor="let detail of transaction.details">
-                <td>{{transaction.date}}</td>
-                <td>{{detail.incomes | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-                <td>{{detail.outcomes | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-                <td>{{detail.earnings | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-            </tr>
-        </ng-container>        
-    </tbody>
-</table>
+            <mat-expansion-panel hideToggle  *ngFor="let detail of transaction.details" class="mat-expansion-panel">
+                <mat-expansion-panel-header class="mat-expansion-panel-header">
+                  <mat-panel-title>
+                    {{transaction.date}}
+                  </mat-panel-title>
+                  <mat-panel-description class="mat-expansion-panel-description">
+                    <div class="transactions__detail">
+                        <label class="label">{{ 'common.income' | translate }}: </label> 
+                        <span class="value">
+                            {{detail.incomes | currency : 'USD' : 'symbol' : '1.0-0'}}
+                        </span>
+                    </div>
+                    <div class="transactions__detail">
+                        <label class="label">{{ 'common.outcome' | translate }}: </label> 
+                        <span class="value">
+                            {{detail.outcomes | currency : 'USD' : 'symbol' : '1.0-0'}}
+                        </span>
+                    </div>
+                    <div class="transactions__detail">
+                        <label class="label">{{ 'common.earning' | translate }}: </label> 
+                        <span class="value">
+                            {{detail.earnings | currency : 'USD' : 'symbol' : '1.0-0'}}
+                        </span>
+                    </div>
+                    <mat-icon>keyboard_arrow_down</mat-icon> 
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div *ngIf="!detail.list">
+                    <p class="empty-rows">No hay registros aqui...</p>
+                </div>
+                <div *ngIf="detail.list && detail.list.length > 0">
+                    <mat-chip-listbox aria-label="Fish selection">
+                        <mat-chip *ngFor="let item of detail.list" color="accent">{{item}}</mat-chip>
+                    </mat-chip-listbox>
+                </div>
+            </mat-expansion-panel>
+        </ng-container>  
+    </mat-accordion>
+</div>

@@ -1,0 +1,49 @@
+@import '../../../../assets/css/colors';
+@import '../../../../assets/css/break-points.scss';
+
+:host {
+    .transactions::ng-deep {
+        .mat-expansion-panel:nth-child(even) {
+            background-color: $background;
+        }
+
+        .empty-rows {font-style: italic; padding: 10px;}
+
+        .mat-expansion-panel-header {
+            height: 75px;
+
+            .mat-content-hide-toggle {
+                flex-direction: column;
+                margin: 0;
+            }
+
+            .transactions__detail {
+                min-width: 90px;
+                display: flex;
+                flex-direction: column;
+
+                .value {
+                    color: $title-primary;
+                }
+
+                &:nth-child(2) { .value { color: $error; } }
+                &:nth-child(3) { .value { color: $success; } }
+            }
+
+            .mat-expansion-panel-description {
+                justify-content: space-between;
+            }
+        }
+    }
+
+    @media only screen and (min-width: $s) {
+        .transactions {
+            padding: 15px 0;
+            .mat-expansion-panel-header::ng-deep {
+                .mat-content-hide-toggle {
+                    flex-direction: row;
+                }
+            }
+        }
+    }
+}
