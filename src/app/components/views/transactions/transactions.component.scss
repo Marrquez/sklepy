@@ -7,7 +7,11 @@
             background-color: $background;
         }
 
-        .empty-rows {font-style: italic; padding: 10px;}
+        .empty-rows {
+            font-style: italic;
+            color: $text-primary;
+            padding: 10px;
+        }
 
         .mat-expansion-panel-header {
             height: 75px;
