@@ -28,8 +28,8 @@ export class TransactionsComponent implements OnInit {
     private store: Store<State>,
     public translate: TranslateService,
   ) {
-    store.select(selectTransactionsList).subscribe(trasnactions => {
-      this.transactions = this.getSortedTransactions(trasnactions);
+    store.select(selectTransactionsList).subscribe(transactions => {
+      this.transactions = this.getSortedTransactions(transactions);
     });
   }
 
@@ -37,6 +37,8 @@ export class TransactionsComponent implements OnInit {
   }
 
   private getSortedTransactions(transactions: Array<Transaction>): Array<Transaction> {
-    return transactions;
+    return transactions.slice(0, 10).sort((a: Transaction, b: Transaction) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
   }
 }
