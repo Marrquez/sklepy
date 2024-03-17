@@ -29,7 +29,7 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div *ngIf="!detail.list">
-                    <p class="empty-rows">No hay registros aqui...</p>
+                    <p class="empty-rows">{{ 'transactions.not-found' | translate }}</p>
                 </div>
                 <div *ngIf="detail.list && detail.list.length > 0">
                     <mat-chip-listbox aria-label="Fish selection">

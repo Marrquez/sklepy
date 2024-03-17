@@ -79,6 +79,7 @@
         "transactions": "Transactions"
     },
     "transactions": {
-        "date": "Date"
+        "date": "Date",
+        "not-found": "No transaction details..."
     }
 }

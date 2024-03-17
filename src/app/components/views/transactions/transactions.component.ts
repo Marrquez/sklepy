@@ -29,10 +29,14 @@ export class TransactionsComponent implements OnInit {
     public translate: TranslateService,
   ) {
     store.select(selectTransactionsList).subscribe(trasnactions => {
-      this.transactions = trasnactions;
+      this.transactions = this.getSortedTransactions(trasnactions);
     });
   }
 
   ngOnInit(): void {
+  }
+
+  private getSortedTransactions(transactions: Array<Transaction>): Array<Transaction> {
+    return transactions;
   }
 }

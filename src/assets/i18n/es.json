@@ -79,6 +79,7 @@
         "transactions": "Historial"
     },
     "transactions": {
-        "date": "Fecha"
+        "date": "Fecha",
+        "not-found": "No hay detalles de esta transaccion."
     }
 }
