@@ -7,11 +7,11 @@
             </mat-menu>
         </div>
         <div class="dashboard__sub-header-right">
+            <button (click)="drawer.toggle()" [disabled]="carItems === 0" mat-flat-button color="accent" aria-label="Car icon">
+                <mat-icon>shopping_cart</mat-icon> {{carItems}}
+            </button>
             <button class="mobile" color="primary" *ngIf="user.isAdmin" mat-mini-fab (click)="adminProduct()">
                 <mat-icon>plus_one</mat-icon>
-            </button>
-            <button (click)="drawer.toggle()" [disabled]="carItems === 0" mat-mini-fab color="accent" aria-label="Car icon">
-                <mat-icon>shopping_cart</mat-icon> {{carItems}}
             </button>
             <button *ngIf="!isOpenStore" mat-mini-fab [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>more_vert</mat-icon>
@@ -57,12 +57,12 @@
         <div class="dashboard__wrapper">
             <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
                 <ng-container matColumnDef="index">
-                    <th mat-header-cell *matHeaderCellDef>#</th>
-                    <td mat-cell *matCellDef="let index = index" class="desktop"><small>{{index + 1}}</small></td>
+                    <th mat-header-cell *matHeaderCellDef class="t-c waskie">#</th>
+                    <td mat-cell *matCellDef="let index = index" class="desktop t-c waskie"><small>{{index + 1}}</small></td>
                 </ng-container>
                 <ng-container matColumnDef="code">
-                    <th mat-header-cell *matHeaderCellDef> {{ 'dashboard.products-list.code' | translate }} </th>
-                    <td mat-cell *matCellDef="let element" class="desktop"> {{element.id.substr(0,2) + element.id.substr(element.id.length - 2,2)}} </td>
+                    <th mat-header-cell *matHeaderCellDef class="t-c waskie"> {{ 'dashboard.products-list.code' | translate }} </th>
+                    <td mat-cell *matCellDef="let element" class="desktop t-c waskie"> {{element.id.substr(0,2) + element.id.substr(element.id.length - 2,2)}} </td>
                 </ng-container>
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef> {{ 'dashboard.products-list.name' | translate }} </th>
@@ -157,8 +157,8 @@
                     <td mat-cell class="dashboard__amount desktop" *matCellDef="let element"> {{ (element.price - (element.value / (element.units * element.quantity) )) | currency : 'USD' : 'symbol' : '1.0-0'}} </td>
                 </ng-container> 
                 <ng-container matColumnDef="available">
-                    <th mat-header-cell *matHeaderCellDef> {{ 'dashboard.products-list.disp' | translate }} </th>
-                    <td mat-cell *matCellDef="let element" class="desktop"> {{element.available}}<span *ngIf="user.isAdmin">/{{element.units * element.quantity}} </span></td>
+                    <th mat-header-cell *matHeaderCellDef class="t-c"> {{ 'dashboard.products-list.disp' | translate }} </th>
+                    <td mat-cell *matCellDef="let element" class="desktop t-c"> {{element.available}}<span *ngIf="user.isAdmin">/{{element.units * element.quantity}} </span></td>
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef> </th>
@@ -177,16 +177,18 @@
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef stickyEnd> 
+                    <th mat-header-cell *matHeaderCellDef class="waskie" stickyEnd> 
                         <button *ngIf="user.isAdmin" (click)="adminProduct()" mat-stroked-button color="primary" aria-label="Example icon button with a plus one icon">
                             <mat-icon>plus_one</mat-icon> {{ 'dashboard.products-list.new' | translate }}
                         </button>
                     </th>
-                    <td mat-cell *matCellDef="let element" class="desktop">
-                        <a *ngIf="user.isAdmin" mat-mini-fab (click)="adminProduct(element)"><mat-icon>edit</mat-icon></a>
-                        <button [disabled]="!isOpenStore" mat-mini-fab (click)="addToCar(element)" color="primary">
-                            <mat-icon>add_shopping_cart</mat-icon>
-                        </button>
+                    <td mat-cell *matCellDef="let element" class="desktop waskie">
+                        <div class="row-actions">
+                            <a *ngIf="user.isAdmin" mat-mini-fab (click)="adminProduct(element)"><mat-icon>edit</mat-icon></a>
+                            <button [disabled]="!isOpenStore" mat-mini-fab (click)="addToCar(element)" color="primary">
+                                <mat-icon>add_shopping_cart</mat-icon>
+                            </button>
+                        </div>
                     </td>
                 </ng-container>
         

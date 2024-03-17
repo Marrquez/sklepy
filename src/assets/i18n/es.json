@@ -36,9 +36,9 @@
         },
         "products-list": {
             "add": "Anadir",
-            "code": "Codigo",
+            "code": "Cod.",
             "disp": "Disp.",
-            "earn": "Ganancia",
+            "earn": "Gan.",
             "name": "Nombre",
             "new": "Agregar",
             "price": "Precio",
