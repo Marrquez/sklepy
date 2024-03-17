@@ -65,10 +65,11 @@
         "detail": "Detalle",
         "open-store": "Abrir caja",
         "summary": "Resumen",
-        "title": "La caja se encuentra cerrada...",
+        "title": "La caja esta cerrada...",
         "total-earning": "Ganancias",
         "total-income": "Total ingresos",
-        "total-outcome": "Total egresos" 
+        "total-outcome": "Total egresos",
+        "no-sells": "No hay registro de ventas..." 
     },
     "top-navbar": {
         "language": "Lenguaje",

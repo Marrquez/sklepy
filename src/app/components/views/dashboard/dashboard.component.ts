@@ -24,11 +24,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
+    MatBadgeModule,
     CommonModule, 
     MatButtonModule, 
     MatTableModule, 

@@ -7,8 +7,16 @@
             </mat-menu>
         </div>
         <div class="dashboard__sub-header-right">
-            <button (click)="drawer.toggle()" [disabled]="carItems === 0" mat-flat-button color="accent" aria-label="Car icon">
-                <mat-icon>shopping_cart</mat-icon> {{carItems}}
+            <button 
+                (click)="drawer.toggle()" 
+                [disabled]="carItems === 0" 
+                mat-mini-fab color="accent" 
+                matBadge="{{carItems}}"
+                matBadgePosition="before"
+                aria-label="Car icon"
+                matBadgeColor="warn"
+            >
+                <mat-icon>shopping_cart</mat-icon>
             </button>
             <button class="mobile" color="primary" *ngIf="user.isAdmin" mat-mini-fab (click)="adminProduct()">
                 <mat-icon>plus_one</mat-icon>

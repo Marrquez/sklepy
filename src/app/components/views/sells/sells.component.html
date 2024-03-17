@@ -1,31 +1,51 @@
 <div class="sells">
     <div class="sells__header">
-        <div>
-            @if (!openStore) {
-                <span>{{ 'sells.title' | translate }}</span>
-            }
-            @if (openStore) {
-                <span>{{ 'sells.date' | translate: {value: currentDate} }}</span>
-            }
-        </div>
-        <div class="dashboard__header-rigth">
-            <button mat-flat-button color="accent" (click)="openCloseSells()">
-                @if (!openStore) {
-                    <span>{{ 'sells.open-store' | translate }}</span>
-                }
-                @if (openStore) {
-                    <span>{{ 'sells.close-store' | translate }}</span>
-                }
-            </button>
-        </div>
+        @if (!openStore) {
+            <span class="label">{{ 'sells.title' | translate }}</span>
+        }
+        @if (openStore) {
+            <span class="label">{{ 'sells.date' | translate: {value: ' '} }} <span class="date">{{currentDate}}</span></span>
+        }
+        <button mat-flat-button color="accent" (click)="openCloseSells()">
+            <span>{{ (!openStore ? 'sells.open-store' : 'sells.close-store') | translate }}</span>
+        </button>
     </div>
     <div class="sells__content">
-        <table>
+        <div class="sells__content-summary">
+            <label class="title">{{ 'sells.summary' | translate}}</label>
+            <div>
+                <div class="sells__content-summary-item">
+                    <div class="sells__content-summary-desc">
+                        <label>{{ "sells.total-income" | translate }}</label>
+                    </div>
+                    <div class="sells__content-summary-val">
+                        <label>{{totalIncome | currency : 'USD' : 'symbol' : '1.0-0'}}</label>
+                    </div>
+                </div>
+                <div class="sells__content-summary-item">
+                    <div class="sells__content-summary-desc">
+                        <label>{{ "sells.total-outcome" | translate }}</label>
+                    </div>
+                    <div class="sells__content-summary-val">
+                        <label>{{totalOutcome | currency : 'USD' : 'symbol' : '1.0-0'}}</label>
+                    </div>
+                </div>
+                <div class="sells__content-summary-item">
+                    <div class="sells__content-summary-desc">
+                        <label>{{ 'sells.total-earning' | translate }}</label>
+                    </div>
+                    <div class="sells__content-summary-val">
+                        <label>{{earnings | currency : 'USD' : 'symbol' : '1.0-0'}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="sells__content-movements">
             <thead>
                 <tr>
-                    <th>{{ 'sells.detail' | translate}}</th>
-                    <th>{{ 'common.outcome' | translate}}</th>
-                    <th>{{ 'common.income' | translate}}</th>
+                    <th><label class="label">{{ 'sells.detail' | translate}}</label></th>
+                    <th><label class="label">{{ 'common.outcome' | translate}}</label></th>
+                    <th><label class="label">{{ 'common.income' | translate}}</label></th>
                 </tr>
             </thead>
             <tbody>
@@ -44,36 +64,18 @@
                         </td>
                     </tr>
                 </ng-container>
+                <tr *ngIf="sells.length === 0">
+                    <td class="no-sells" colspan="3">
+                        <label>{{ 'sells.no-sells' | translate}}</label>
+                    </td>
+                </tr>
                 
                 <tr>
-                    <td>{{ 'common.total' | translate}}</td>
-                    <td>{{totalOutcome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-                    <td>{{totalIncome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                    <td class="label">{{ 'common.total' | translate}}</td>
+                    <td class="total">{{totalOutcome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
+                    <td class="total">{{totalIncome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
                 </tr>
             </tbody>
         </table>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="2"><h1>{{ 'sells.summary' | translate}}</h1></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ "sells.total-income" | translate }}</td>
-                        <td>{{totalIncome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ "sells.total-outcome" | translate }}</td>
-                        <td>{{totalOutcome | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ 'sells.total-earning' | translate }}</td>
-                        <td>{{earnings | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>

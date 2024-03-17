@@ -65,10 +65,11 @@
         "detail": "Detail",
         "open-store": "Open store",
         "summary": "Summary",
-        "title": "The Store is currently close",
+        "title": "The Store is close",
         "total-earning": "Total earnings",
         "total-income": "Total incomes",
-        "total-outcome": "Total outcomes" 
+        "total-outcome": "Total outcomes",
+        "no-sells": "No sells registered..."
     },
     "top-navbar": {
         "language": "Language",
