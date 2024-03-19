@@ -37,8 +37,8 @@ export class TransactionsComponent implements OnInit {
   }
 
   private getSortedTransactions(transactions: Array<Transaction>): Array<Transaction> {
-    return transactions.slice(0, 10).sort((a: Transaction, b: Transaction) => {
+    return transactions.slice().sort((a: Transaction, b: Transaction) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
-    });
+    }).slice(0, 10);
   }
 }
