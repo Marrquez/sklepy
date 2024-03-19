@@ -173,7 +173,7 @@
                     <td mat-cell class="dashboard__status desktop" *matCellDef="let element"> 
                         <div [ngClass]="{
                             'red': (element.available * 100 / (element.units * element.quantity)) <= 33, 
-                            'yellow': (element.available * 100 / (element.units * element.quantity)) > 33 && (element.available * 100 / (element.units * element.quantity)) <= 66,
+                            'yellow': (element.available * 100 / (element.units * element.quantity)) >= 34 && (element.available * 100 / (element.units * element.quantity)) <= 66,
                             'green': (element.available * 100 / (element.units * element.quantity)) > 66,
                             'empty': (element.available * 100 / (element.units * element.quantity)) === 0
                             }">
