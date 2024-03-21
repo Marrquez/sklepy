@@ -52,6 +52,12 @@
                             color: $error;
                         }
                     }
+
+                    &:nth-child(3) {
+                        .sells__content-summary-val {
+                            color: $success;
+                        }
+                    }
                 }
 
                 &-desc label {padding-right: 5px;}
