@@ -7,6 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
+import { GetTransactions } from '../../../store/actions/transactions.actions';
 
 @Component({
   selector: 'app-transactions',
@@ -34,6 +35,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(GetTransactions());
   }
 
   // private getSortedTransactions(transactions: Array<Transaction>): Array<Transaction> {

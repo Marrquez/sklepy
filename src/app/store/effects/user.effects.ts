@@ -4,7 +4,6 @@ import { AddUser } from '../actions/user.actions';
 import { of, switchMap } from 'rxjs';
 import { GetProducts } from '../actions/product.actions';
 import { GetSklepStatus } from '../actions/sells.actions';
-import { GetTransactions } from '../actions/transactions.actions';
 
 
 
@@ -15,7 +14,7 @@ export class UserEffects {
       ofType(AddUser),
       switchMap((action) => {
         localStorage.setItem('userData', JSON.stringify(action.user));
-        return of( GetProducts(), GetSklepStatus(), GetTransactions());
+        return of( GetProducts(), GetSklepStatus());
       }
       ),
     )
