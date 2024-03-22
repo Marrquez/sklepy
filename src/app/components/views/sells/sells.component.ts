@@ -21,7 +21,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './sells.component.scss'
 })
 export class SellsComponent implements OnInit {
-  currentDate = (new Date()).toLocaleDateString();
+  currentDate = new Date().toISOString();
   sells: Array<Sell> = [];
   transactions:Array<Transaction> = [];
   totalIncome = 0;

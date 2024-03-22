@@ -46,7 +46,7 @@ export class SellsEffects {
     () => this.actions$.pipe(
       ofType(OpenSells),
       switchMap(() => {
-        const currentDate = new Date().toString();
+        const currentDate = new Date().toISOString();
         return from(this.sellsService.updateSklepStatus(true, currentDate)).pipe(
           map(() => {
             const status = {
