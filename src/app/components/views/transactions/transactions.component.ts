@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State, selectTransactionsList } from '../../../store/reducers';
 import { Transaction } from '../../../models/product.model';
@@ -8,6 +8,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
 import { GetTransactions } from '../../../store/actions/transactions.actions';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-transactions',
@@ -17,8 +18,10 @@ import { GetTransactions } from '../../../store/actions/transactions.actions';
     TranslateModule,
     MatExpansionModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCheckboxModule
   ],
+  schemas: [NO_ERRORS_SCHEMA],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss'
 })
@@ -30,12 +33,22 @@ export class TransactionsComponent implements OnInit {
     public translate: TranslateService,
   ) {
     store.select(selectTransactionsList).subscribe(transactions => {
-      this.transactions = transactions;
+      this.transactions = transactions.map(t => {
+        return {
+          ...t,
+          selected: false
+        };
+      });
     });
   }
 
   ngOnInit(): void {
     this.store.dispatch(GetTransactions());
+  }
+
+  updateBalance(transaction: Transaction): void {
+    transaction.selected = !transaction.selected;
+    console.log("Update transactions with... ", transaction);
   }
 
   // private getSortedTransactions(transactions: Array<Transaction>): Array<Transaction> {

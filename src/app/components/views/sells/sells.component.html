@@ -6,9 +6,15 @@
         @if (openStore) {
             <span class="label">{{ 'sells.date' | translate: {value: ' '} }} <span class="date">{{currentDate.slice(0, 10)}}</span></span>
         }
-        <button mat-flat-button color="accent" (click)="openCloseSells()">
-            <span>{{ (!openStore ? 'sells.open-store' : 'sells.close-store') | translate }}</span>
+        <button mat-mini-fab [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
         </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openCloseSells()">
+                <mat-icon>launch</mat-icon>
+                <span>{{ (!openStore ? 'sells.open-store' : 'sells.close-store') | translate }}</span>
+            </button>
+        </mat-menu>
     </div>
     <div class="sells__content">
         <div class="sells__content-summary">

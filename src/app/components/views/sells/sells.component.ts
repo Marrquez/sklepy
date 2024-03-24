@@ -8,6 +8,8 @@ import { EmptySells, GetSells, OpenSells } from '../../../store/actions/sells.ac
 import { SetTransactions } from '../../../store/actions/transactions.actions';
 import { TransactionService } from '../../../services/transactions.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-sells',
@@ -15,7 +17,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   imports: [
     CommonModule,
     MatButtonModule,
-    TranslateModule
+    TranslateModule,
+    MatMenuModule,
+    MatIconModule
   ],
   templateUrl: './sells.component.html',
   styleUrl: './sells.component.scss'

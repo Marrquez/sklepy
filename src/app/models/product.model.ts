@@ -29,5 +29,6 @@ export interface TransactionDetail {
 
 export interface Transaction {
     date: string;
+    selected?:boolean,
     details: Array<TransactionDetail>;
 }

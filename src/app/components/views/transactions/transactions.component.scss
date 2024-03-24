@@ -14,7 +14,7 @@
         }
 
         .mat-expansion-panel-header {
-            height: 75px;
+            height: 100px;
 
             .mat-content-hide-toggle {
                 flex-direction: column;
@@ -44,6 +44,8 @@
         .transactions {
             padding: 15px 0;
             .mat-expansion-panel-header::ng-deep {
+                height: 60px;
+
                 .mat-content-hide-toggle {
                     flex-direction: row;
                 }
