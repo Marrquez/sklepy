@@ -89,7 +89,7 @@ export class SellsComponent implements OnInit {
 
       sell.products.forEach((product) => {
         const amount = sell.own ? product.units * product.value : product.units * product.price;
-        products.push(product.name + ".." + product.units +  ".." + amount + own);
+        products.push(product.id + ".." + product.name + ".." + product.units +  ".." + amount + own);
       });
     });
 
