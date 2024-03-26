@@ -16,6 +16,6 @@ export class TransactionService {
 
   async getTransactions() {
     const productsRef = collection(this.firestore, 'transactions');
-    return (await getDocs(query(productsRef, limit(10), orderBy('date', 'desc')))).docs.map(doc => doc.data());
+    return (await getDocs(query(productsRef, orderBy('date', 'desc'), limit(10)))).docs.map(doc => doc.data());
   }
 }

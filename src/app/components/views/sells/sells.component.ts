@@ -85,11 +85,11 @@ export class SellsComponent implements OnInit {
     let products: Array<string> = [];
 
     this.sells.forEach((sell) => {
-      const own = sell.own ? "[P]" : "";
+      const own = sell.own ? "..P" : "";
 
       sell.products.forEach((product) => {
         const amount = sell.own ? product.units * product.value : product.units * product.price;
-        products.push(product.name + " [" + product.units +  "][" + amount + "]"  + own);
+        products.push(product.name + ".." + product.units +  ".." + amount + own);
       });
     });
 
