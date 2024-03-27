@@ -39,7 +39,7 @@
                 </div>
                 <div *ngIf="detail.list && detail.list.length > 0">
                     <mat-chip-listbox aria-label="Fish selection">
-                        <mat-chip *ngFor="let item of detail.list" color="accent">{{item}}</mat-chip>
+                        <mat-chip *ngFor="let item of detail.list" color="accent">{{ item.slice(22) }}</mat-chip>
                     </mat-chip-listbox>
                 </div>
             </mat-expansion-panel>

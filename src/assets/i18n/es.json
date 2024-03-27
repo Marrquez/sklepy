@@ -64,11 +64,11 @@
         "date": "Ventas para hoy {{value}}",
         "detail": "Detalle",
         "open-store": "Abrir caja",
-        "summary": "Resumen",
+        "summary": "Resumen de Ventas",
         "title": "La caja esta cerrada...",
         "total-earning": "Ganancias",
-        "total-income": "Total ingresos",
-        "total-outcome": "Total egresos",
+        "total-income": "Total ventas",
+        "total-outcome": "Total gastos",
         "no-sells": "No hay registro de ventas..." 
     },
     "top-navbar": {
