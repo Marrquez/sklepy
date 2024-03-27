@@ -51,9 +51,7 @@ export class TransactionsComponent implements OnInit {
     console.log("Update transactions with... ", transaction);
   }
 
-  // private getSortedTransactions(transactions: Array<Transaction>): Array<Transaction> {
-  //   return transactions.slice().sort((a: Transaction, b: Transaction) => {
-  //     return new Date(b.date).getTime() - new Date(a.date).getTime();
-  //   }).slice(0, 10);
-  // }
+  checkOldPillsFormat(item: Transaction): boolean {
+    return new Date(item.date) > new Date('2024-03-26T08:22:05.417Z');
+  }
 }
