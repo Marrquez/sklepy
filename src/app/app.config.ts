@@ -29,8 +29,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    { provide: SKLEP_STATUS_DOC, useValue: 'lEKhxRjsDrFJyjEnme3R' },
-    { provide: ADMIN_USER, useValue: 'gBHfh65ImweUY3GGKJyN7qZrm3h2' },
+    { provide: SKLEP_STATUS_DOC, useValue: '' },
+    { provide: ADMIN_USER, useValue: '' },
     AuthService,
     provideRouter(routes), 
     provideClientHydration(),
