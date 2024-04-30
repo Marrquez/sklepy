@@ -101,10 +101,10 @@
                                 <div class="right">
                                     <div class="mobile__tag dashboard__status">
                                         <div [ngClass]="{
-                                            'red': (element.available * 100 / (element.units * element.quantity)) <= 33, 
-                                            'yellow': (element.available * 100 / (element.units * element.quantity)) > 33 && (element.available * 100 / (element.units * element.quantity)) <= 66,
-                                            'green': (element.available * 100 / (element.units * element.quantity)) > 66,
-                                            'empty': (element.available * 100 / (element.units * element.quantity)) === 0
+                                            'red': ((element.available * 100) / (element.units * element.quantity)) <= 34, 
+                                            'yellow': (((element.available * 100) / (element.units * element.quantity)) > 34 && ((element.available * 100) / (element.units * element.quantity)) <= 50),
+                                            'green': ((element.available * 100) / (element.units * element.quantity)) > 50,
+                                            'empty': ((element.available * 100) / (element.units * element.quantity)) === 0
                                             }">
                                             <span>{{element.available * 100 / (element.units * element.quantity)  | number:'1.0-0'}}</span>%
                                             <div class="dashboard__status-progress">
@@ -172,10 +172,10 @@
                     <th mat-header-cell *matHeaderCellDef> </th>
                     <td mat-cell class="dashboard__status desktop" *matCellDef="let element"> 
                         <div [ngClass]="{
-                            'red': (element.available * 100 / (element.units * element.quantity)) <= 34, 
-                            'yellow': (((element.available * 100) / (element.units * element.quantity)) > 34 && ((element.available * 100) / (element.units * element.quantity)) <= 66),
-                            'green': (element.available * 100 / (element.units * element.quantity)) > 66,
-                            'empty': (element.available * 100 / (element.units * element.quantity)) === 0
+                            'red': ((element.available * 100) / (element.units * element.quantity)) <= 34, 
+                            'yellow': (((element.available * 100) / (element.units * element.quantity)) > 34 && ((element.available * 100) / (element.units * element.quantity)) <= 50),
+                            'green': ((element.available * 100) / (element.units * element.quantity)) > 50,
+                            'empty': ((element.available * 100) / (element.units * element.quantity)) === 0
                             }">
                             <span>{{element.available * 100 / (element.units * element.quantity)  | number:'1.0-0'}}</span>%
                             <div class="dashboard__status-progress">
